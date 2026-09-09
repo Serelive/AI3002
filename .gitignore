@@ -1,0 +1,62 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+
+# Virtual environments and local configuration
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Packaging and build output
+build/
+dist/
+*.egg-info/
+
+# IDE and notebook state
+.idea/
+.vscode/
+.ipynb_checkpoints/
+
+# Course materials: retain indexes and placeholders, not originals
+/materials/**
+!/materials/**/
+!/materials/**/.gitkeep
+!/materials/README.md
+
+# Shared data: retain metadata and placeholders, not datasets
+/data/**
+!/data/**/
+!/data/**/.gitkeep
+!/data/README.md
+
+# Assignment-local immutable inputs and generated output stay local
+/assignments/*/data/**
+!/assignments/*/data/**/
+!/assignments/*/data/**/.gitkeep
+!/assignments/*/data/README.md
+/assignments/*/prompt/**
+!/assignments/*/prompt/**/
+!/assignments/*/prompt/**/.gitkeep
+!/assignments/*/prompt/README.md
+/assignments/*/output/**
+!/assignments/*/output/**/
+!/assignments/*/output/**/.gitkeep
+
+# Disposable experiments
+/scratch/**
+!/scratch/.gitkeep
+
+# OS noise
+Thumbs.db
+.DS_Store
