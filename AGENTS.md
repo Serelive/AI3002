@@ -62,9 +62,10 @@ These subject-specific checks apply when relevant to the assignment; they are no
 
 ## Course references
 
-Materials expected in the paired cloud project or provided locally: slides. Both 2025 links below are previous-semester references; the MIRA page is labeled AI3001.01, so do not assume its course identity, requirements, or grading match AI3002 this term.
-The list does not establish that these resources are present locally. Read accessible current assignment materials first. Use course websites as references; reviews are anecdotal, and older-semester materials are not current specifications.
+Materials expected in the paired cloud project or provided locally: slides. The Fall 2026 repository below is the current-term course source for lab materials and written homework. Read accessible current assignment materials first, and consult the current repository and instructor announcements for updates. If local handouts conflict with current guidance, flag the discrepancy and prefer the latest applicable instructor guidance.
+Both 2025 links below are previous-semester references; the MIRA page is labeled AI3001.01, so do not assume its course identity, requirements, or grading match AI3002 this term. The list does not establish that these resources are present locally. Reviews are anecdotal, and older-semester materials are not current specifications.
 
+- [Current-term course repository (Fall 2026)](https://github.com/ChangshuoShen/USTC-AI3002-26fall/)
 - [Previous-semester repository (Fall 2025)](https://github.com/ChangshuoShen/USTC-AI3002-25fall)
 - [Related previous-semester course page (AI3001.01, Fall 2025)](https://miralab.ai/course/ml_2025fall/)
 - [Relevant course reviews (anecdotal)](https://icourse.club/course/26106/)
