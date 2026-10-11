@@ -42,11 +42,11 @@ Create only the project or assignment subdirectories that are needed. They may u
 
 ## Assignments and projects
 
-No deliverable has been created yet.
+Lab 1 has been set up; no final submission has been selected.
 
 | Identifier | Topic | Owner | Status | Due |
 | --- | --- | --- | --- | --- |
-| — | — | — | — | — |
+| Lab 1 | [Linear probes](assignments/labs/lab1/README.md) | Individual | Orientation complete; implementation pending | See assignment README |
 
 ## Course priorities
 
@@ -55,6 +55,8 @@ User-supplied grading context: individual project 60%; team project 40%; possibl
 ## Version control
 
 The repository has an initial checkpoint on `main`. `docs/VERSION_CONTROL.md` explains local commits and later publication to a separate private GitHub repository. Setup created no remote and uploaded nothing.
+
+See [the practical Git lecture](docs/GIT_COURSEWORK_LECTURE.md) for worked examples. Supplied Lab 1 datasets, archives, instructor PDFs, local Codex configuration, and report build products are ignored. [Input recovery instructions](assignments/labs/lab1/docs/INPUTS.md) and checksums are tracked; keep a separate backup of the inputs. Existing history still contains previously committed materials.
 
 ## Setup provenance
 

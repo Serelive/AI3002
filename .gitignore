@@ -27,6 +27,7 @@ dist/
 .idea/
 .vscode/
 .ipynb_checkpoints/
+/.codex/
 
 # Course materials: retain indexes and placeholders, not originals
 /materials/**
@@ -52,6 +53,22 @@ dist/
 /assignments/*/output/**
 !/assignments/*/output/**/
 !/assignments/*/output/**/.gitkeep
+
+# Actual nested course layout: supplied inputs and generated files stay local
+/assignments/labs/lab1/main/datasets/
+/assignments/labs/lab1/backups/
+/assignments/labs/lab1/docs/*.pdf
+/assignments/homeworks/hw1/docs/*.pdf
+/assignments/labs/*/output/
+/assignments/homeworks/*/output/
+/assignments/labs/lab1/report/*.aux
+/assignments/labs/lab1/report/*.fdb_latexmk
+/assignments/labs/lab1/report/*.fls
+/assignments/labs/lab1/report/*.log
+/assignments/labs/lab1/report/*.out
+/assignments/labs/lab1/report/*.xdv
+/assignments/labs/lab1/report/*.synctex.gz
+/assignments/labs/lab1/report/report.template.pdf
 
 # Disposable experiments
 /scratch/**
