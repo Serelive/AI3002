@@ -1,40 +1,28 @@
-# Agreement
+# Lab 1 working agreement
 
-## Program Stage
-We use "phase" and "increment" to name a specific period of program. 
-For convenience, 
-use `f"p{x:02d}` for phase x, use `f"p{y:02d}"` for increment y. 
-These are merely lightweight markers, 
-not strict partitions of project stages. 
+## Scope and stages
+
+`lab1` means `assignments/labs/lab1`. Task numbers ignore capitalization and spacing: `task1` and `Task 1` mean the same thing.
+
+- **Task 1:** implement linear and logistic regression.
+- **Task 2:** predict geographic coordinates.
+- **Task 3:** classify sentence truth.
+
+Use `pNN` for phases and `iNN` for increments, with two-digit numbers (e.g., `p01-i02`). These are lightweight progress markers, not rigid stages.
 
 ## Documentation
 
-### Directory structure
-In the documentation folder structure, 
-we only organize directories at the phase level, 
-without dedicated folders for the increment level. 
+Keep lab-wide documents in `docs/` and phase-specific documents in `docs/pNN/`. Do not create increment folders.
 
-### Naming
-Use `[<scope>_]<type>[-rNN][_<keywords>].md` to name a document. 
-For example, in "ms_quickguide.md", type is "ms", and the keyword is "quickguide". 
+Name documents `[<scope>_]<type>[-rNN][_<keywords>].md`:
 
-- scope
-  - pNN-iNN: phase NN, increment NN
-  - pNN: phase NN, global in phase, valid for all its increments
-  - NULL: global, valid for all phases and increments
-- type
-  - plan
-  - reference
-  - roadmap
-  - agreement
-  - review: Used only when an independent review is implemented. 
-- keywords: More than two keywords should be linked with "-".
-- `[-rNN]`: Used only when an existing file is reviewed. A review for an independent review should be like "review-r01", and a review for that should be like "review-r02"
+- **Scope:** omit for lab-wide documents; use `pNN` for a phase or `pNN-iNN` for an increment.
+- **Type:** `plan`, `reference`, `roadmap`, `agreement`, or `review`. Use `review` only for an independent review.
+- **Keywords:** optional; separate multiple words with hyphens.
+- **Review depth:** omit for the original document; use `-r01` for its review, `-r02` for a review of that review, and so on. Retain the original scope, type, and keywords to identify the document being reviewed. This suffix is not a version number.
 
-### Version control
-Use git rather than the name of file to control version. When a new file is created or validly modified, add it to git and commit once. 
+Examples: `reference_quickguide.md`, `p01-i02_plan.md`, and `p01_review-r01_model.md` (a review of `p01_review_model.md`).
 
-## About the Lab
-There are 3 tasks in lab1.
-When I use "task 1", "task1", "Task1" or "Task 1", 
-I refer to the first task in lab 1.
+## Version control
+
+Use Git for version history; keep filenames stable. After creating or meaningfully editing a document, check it, stage the relevant changes, and commit them together. Respect repository ignore rules and leave unrelated changes out.
