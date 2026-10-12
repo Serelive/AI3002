@@ -1,0 +1,23 @@
+- phase 1 / task 1
+  - increment 0
+    - Communicate the code with the theory
+  - increment 1
+    - Implement `LinearRegressionModel.fit()`
+  - increment 2
+    - Implement `LinearRegressionModel.predict()`
+  - increment 3
+    - Test and debug on linear regression model
+  - increment 4
+    - Implement `LogisticRegressionModel.fit()`
+  - increment 5
+    - Implement `LogisticRegressionModel.predict()`
+  - increment 6
+    - Test and debug on logistic regression model
+  - increment 7
+    - Problem 1: Reproduce parameter path
+  - increment 8
+    - Problem 2: Build examples to refute representation selection method
+  - increment 9
+    - Problem 3: Compare with sklearn
+  - increment 10
+    - Revise before submit
