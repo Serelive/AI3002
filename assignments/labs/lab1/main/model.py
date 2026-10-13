@@ -26,10 +26,10 @@ class LinearRegressionModel:
         weights = np.zeros(self.n_features, dtype=np.float64)
         bias = np.float64(0.0)
         for iter in range(self.max_iter):
-            weights = weights - self.lr * self._gradient(weights, bias, features, targets)[0]
-            bias = bias - self.lr * self._gradient(weights, bias, features, targets)[1]
-        self.weights = weights
-        self.bias = bias
+            gradient = self._gradient(weights, bias, features, targets)
+            weights = weights - self.lr * gradient[0]
+            bias = bias - self.lr * gradient[1]
+        self.weights, self.bias = weights, bias
 
     def predict(self, features: np.ndarray) -> np.ndarray:
         # 提示：使用矩阵乘法和偏置，返回形状为 (N,) 的预测值。
@@ -42,8 +42,8 @@ class LinearRegressionModel:
         features: np.ndarray,
         targets: np.ndarray,
     ) -> tuple:
-        gradient_w = 1 // features.shape[0] * features.T @ (features @ weights + bias - targets) + self.l1 * np.sign(weights) + 2 * self.l2 * weights
-        gradient_b = 1 // features.shape[0] * np.sum(features @ weights + bias - targets)
+        gradient_w = 2 / features.shape[0] * features.T @ (features @ weights + bias - targets) + self.l1 * np.sign(weights) + 2 * self.l2 * weights
+        gradient_b = 1 / features.shape[0] * np.sum(features @ weights + bias - targets)
         return gradient_w, gradient_b
 
 
