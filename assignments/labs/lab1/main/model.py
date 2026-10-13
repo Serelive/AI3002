@@ -43,7 +43,7 @@ class LinearRegressionModel:
         targets: np.ndarray,
     ) -> tuple:
         gradient_w = 2 / features.shape[0] * features.T @ (features @ weights + bias - targets) + self.l1 * np.sign(weights) + 2 * self.l2 * weights
-        gradient_b = 1 / features.shape[0] * np.sum(features @ weights + bias - targets)
+        gradient_b = 2 / features.shape[0] * np.sum(features @ weights + bias - targets)
         return gradient_w, gradient_b
 
 
