@@ -1,6 +1,6 @@
 # Lab 1 — Linear probes
 
-Status: orientation complete; model implementation and experiments not yet started.
+Status: p01-i00–i02 implemented; the [p01-i03 review](docs/p01/p01-i03_review.md) found three linear-regression issues requiring fixes. Logistic regression and full-data experiments remain pending.
 
 Start with [the quick guide](docs/reference_quickguide.md) for reading order, file roles, and a time budget. The [current course repository](https://github.com/ChangshuoShen/USTC-AI3002-26fall/) lists October 21, 2026 as the deadline (checked October 9), conflicting with October 31 in the supplied `main/README.md`. Plan for October 21 and confirm through class notices.
 
