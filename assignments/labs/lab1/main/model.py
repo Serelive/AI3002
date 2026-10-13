@@ -1,21 +1,50 @@
 import numpy as np
 
-
 class LinearRegressionModel:
     """用单个线性回归模型预测一个连续目标。"""
 
-    def __init__(self, n_features: int):
+    def __init__(
+        self,
+        n_features: int,
+        l1: float= 0.0,
+        l2: float= 0.0,
+        lr: float= 0.01,
+        max_iter: int= 10000,
+    ) -> None:
         # 一个连续目标只需要一个权重向量和一个标量偏置。
+        self.n_features = n_features
         self.weights = np.zeros(n_features, dtype=np.float64)
         self.bias = np.float64(0.0)
+        self.l1 = l1
+        self.l2 = l2
+        self.lr = lr
+        self.max_iter = max_iter
+
 
     def fit(self, features: np.ndarray, targets: np.ndarray) -> None:
         # 训练模型；features 为 (N, D)，targets 为 (N,)。
-        raise NotImplementedError
+        weights = np.zeros(self.n_features, dtype=np.float64)
+        bias = np.float64(0.0)
+        for iter in range(self.max_iter):
+            weights = weights - self.lr * self._gradient(weights, bias, features, targets)[0]
+            bias = bias - self.lr * self._gradient(weights, bias, features, targets)[1]
+        self.weights = weights
+        self.bias = bias
 
     def predict(self, features: np.ndarray) -> np.ndarray:
         # 提示：使用矩阵乘法和偏置，返回形状为 (N,) 的预测值。
-        raise NotImplementedError
+        return np.dot(features, self.weights) + self.bias
+
+    def _gradient(
+        self,
+        weights: np.ndarray,
+        bias: np.float64,
+        features: np.ndarray,
+        targets: np.ndarray,
+    ) -> tuple:
+        gradient_w = 1 // features.shape[0] * features.T @ (features @ weights + bias - targets) + self.l1 * np.sign(weights) + 2 * self.l2 * weights
+        gradient_b = 1 // features.shape[0] * np.sum(features @ weights + bias - targets)
+        return gradient_w, gradient_b
 
 
 class LogisticRegressionModel:
