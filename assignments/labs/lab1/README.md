@@ -2,6 +2,8 @@
 
 For Phase 1 report experiments, see [the questions 1–3 guide](docs/p01/p01_guide_questions.md).
 
+For Task 2, see the [roadmap](docs/roadmap.md) and main-body guides in [English](docs/p02/p02_guide_main-eng.py) and [Chinese](docs/p02/p02_guide_main-zh.md). The English `.py` is documentation only. Planning and input inspection are complete; Task 2 training, model selection, and export verification remain pending. The guides distinguish existing commands from proposed options and defer questions 4–7. No Task 2 submission artifact has been selected.
+
 Status: linear-regression fixes pass focused checks, including the stale-parameter regression covered in [p01-i03 review-r03](docs/p01/p01-i03_review-r03.md). Logistic regression is implemented but awaits review; full-data experiments remain pending.
 
 Start with [the quick guide](docs/reference_quickguide.md) for reading order, file roles, and a time budget. The [current course repository](https://github.com/ChangshuoShen/USTC-AI3002-26fall/) lists October 21, 2026 as the deadline (checked October 9), conflicting with October 31 in the supplied `main/README.md`. Plan for October 21 and confirm through class notices.
