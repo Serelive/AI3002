@@ -42,8 +42,10 @@ class LinearRegressionModel:
         features: np.ndarray,
         targets: np.ndarray,
     ) -> tuple:
-        gradient_w = 2 / features.shape[0] * features.T @ (self.predict(features) - targets) + self.l1 * np.sign(weights) + 2 * self.l2 * weights
-        gradient_b = 2 / features.shape[0] * np.sum(self.predict(features) - targets)
+        # Use the current local parameters from fit(), not the stored model state.
+        residual = features @ weights + bias - targets
+        gradient_w = 2 / features.shape[0] * features.T @ residual + self.l1 * np.sign(weights) + 2 * self.l2 * weights
+        gradient_b = 2 * np.mean(residual)
         return gradient_w, gradient_b
 
 
