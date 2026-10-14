@@ -96,6 +96,6 @@ class LogisticRegressionModel:
         scores = features @ weights + bias
         probabilities = np.exp(-np.logaddexp(0.0, -scores))
         residual = probabilities - targets
-        gradient_w = 2 / features.shape[0] * features.T @ residual + self.l1 * np.sign(weights) + 2 * self.l2 * weights
-        gradient_b = 2 * np.mean(residual)
+        gradient_w = 1 / features.shape[0] * features.T @ residual + self.l1 * np.sign(weights) + 2 * self.l2 * weights
+        gradient_b = 1 * np.mean(residual)
         return gradient_w, gradient_b
