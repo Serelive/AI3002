@@ -58,6 +58,8 @@ dist/
 /assignments/labs/lab1/main/datasets/
 /assignments/labs/lab1/backups/
 /assignments/labs/lab1/docs/*.pdf
+# Reference paper PDFs stay local; track their index and checksums
+/assignments/labs/lab1/docs/papers/**/*.pdf
 /assignments/homeworks/hw1/docs/*.pdf
 /assignments/labs/*/output/
 /assignments/homeworks/*/output/
