@@ -24,7 +24,7 @@ Paths above are relative to `lab1`, except `instruction.pdf`, which is in `docs/
 
 ## p02 — Predict geographic coordinates
 
-Source: `docs/instruction.pdf` §2.2, with export details in Appendix C.1. Detailed main-body guides: [English](p02/p02_guide_main-eng.py) (documentation-only Python file, as requested) and [中文](p02/p02_guide_main-zh.md). These are plans, not completed experiment results.
+Source: `docs/instruction.pdf` §2.2, with export details in Appendix C.1. Detailed main-body guides: [English](p02/p02_guide_main-eng.md) and [中文](p02/p02_guide_main-zh.md). These are plans, not completed experiment results.
 
 ### Main implementation
 

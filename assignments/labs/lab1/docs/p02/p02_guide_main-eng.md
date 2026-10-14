@@ -1,11 +1,9 @@
-"""Lab 1 / p02: actionable guide to the main body of Task 2.
+# Lab 1 / p02: actionable guide to the main body of Task 2.
 
-This is documentation, saved as .py at the user's request. Running it does not
-train a model. Code fragments below are implementation examples, not a complete
-script. The Chinese companion is p02_guide_main-zh.md.
+Code fragments below are implementation examples, not a complete script.
+Chinese companion: [p02_guide_main-zh.md](p02_guide_main-zh.md).
 
-0. Scope, sources, and current status
-====================================
+## 0. Scope, sources, and current status
 Read docs/instruction.pdf sections 2.1, 2.2, 3 and Appendix C.1, then
 main/model.py and main/train23.py. Paths in this guide are relative to
 assignments/labs/lab1 unless explicitly stated otherwise. Shell commands run
@@ -34,8 +32,7 @@ arrays with the expected shapes; both CSV files have the expected four columns
 and no missing values. Python/NumPy/pandas versions: 3.14.4 / 2.5.3 / 3.0.6.
 No Task 2 training results were generated while preparing this guide.
 
-1. p02-i00: establish the starting point
-=======================================
+## 1. p02-i00: establish the starting point
 Run the existing focused linear-regression checks:
 
     .venv/bin/python assignments/labs/lab1/main/test_linear_regression.py
@@ -51,8 +48,7 @@ Do not reimplement that structure. Preserve the truth branch for Task 3.
 Done when: you can trace load_split -> fit -> predict -> MSE -> np.savez and
 explain each shape. A passing toy test does not establish full-data stability.
 
-2. p02-i01: inspect the data contract
-====================================
+## 2. p02-i01: inspect the data contract
 Inputs in main/datasets/world/:
 
     train.csv                 500 rows; sentence, country, latitude, longitude
@@ -73,8 +69,7 @@ Keep raw files unchanged. Training fits parameters; validation selects settings;
 the hidden test is not available for tuning. Do not merge train and validation
 in the baseline workflow.
 
-3. p02-i02: connect equations to code
-====================================
+## 3. p02-i02: connect equations to code
 For X of shape (N, D) and Y of shape (N, 2), fit two independent objectives:
 
     L_k = mean((X @ w_k + b_k - Y[:, k])**2)
@@ -95,8 +90,7 @@ to the two weight vectors. W.T changes (2, D) into (D, 2); broadcasting adds
 the two bias values to every row. A target shaped (N, 1) can accidentally
 broadcast against (N,) predictions to create (N, N) residuals.
 
-4. p02-i03: make a stable, observable baseline
-============================================
+## 4. p02-i03: make a stable, observable baseline
 First add --lr, --max-iter, --l1, --l2 to train23.py and pass them explicitly to
 both coordinate models. Record them. These flags do NOT exist yet. Reject
 nonpositive learning rates/iteration limits and negative regularization.
@@ -133,8 +127,7 @@ reference command as a confirmed stable baseline or a measured result.
 Done when: a full-data run finishes with finite predictions, saved parameters,
 and a reproducible configuration; training loss decreases for the smooth run.
 
-5. p02-i04: measure the baseline and preserve evidence
-====================================================
+## 5. p02-i04: measure the baseline and preserve evidence
 Compute training and validation errors separately:
 
     mse_by_coordinate = np.mean((prediction - targets)**2, axis=0)  # (2,)
@@ -157,6 +150,7 @@ an invented pass threshold. Check convergence, output order, and feature/label
 alignment before expanding experiments.
 
 Create output/p02/ only when experiments begin. For each distinct run, retain:
+
 - metrics.csv row: run_id, layer, l1, l2, lr, max_iter, actual iterations,
   stopping reason, train/valid MSE and per-coordinate errors, elapsed seconds;
 - config.json or equivalent: exact command, preprocessing, package versions,
@@ -168,8 +162,7 @@ Zero-initialized full-batch training has no random sampling; record that rather
 than claiming an unused seed. If shuffling or randomized methods are added,
 choose and record a fixed seed (for example 42). Avoid overwriting distinct runs.
 
-6. p02-i05: choose layer and regularization within a small budget
-===============================================================
+## 6. p02-i05: choose layer and regularization within a small budget
 After the baseline is stable, compare layers 11, 23, 35 using the same protocol.
 An initial suggested L2 grid is {0, 1e-4, 1e-2, 1, 100}, with l1=0. It is not a
 guarantee of a good range; feature scale matters. Recompute a stable rate for
@@ -186,8 +179,7 @@ A small L1 comparison is optional for this main workflow; Task 1's requirement
 to implement both penalties remains. Library-trained final weights are allowed
 by section 2.2, but are not required to establish the handwritten baseline.
 
-7. Optional preprocessing: preserve raw-feature inference
-=========================================================
+## 7. Optional preprocessing: preserve raw-feature inference
 Only add feature standardization if it solves an observed optimization issue.
 Fit mean mu and scale s on TRAIN features only; replace zero standard deviations
 by 1. Apply the same transformation to validation. Scaling changes the meaning
@@ -209,8 +201,7 @@ Keep targets in degrees in the initial workflow; target scaling would require
 another inverse transformation. Do not export standardized-space weights as
 though they applied directly to the provided features.
 
-8. p02-i06-i07: reload, verify, and freeze a candidate
-====================================================
+## 8. p02-i06-i07: reload, verify, and freeze a candidate
 After saving, reload from disk in a fresh process with allow_pickle=False:
 
     with np.load(output_path, allow_pickle=False) as archive:
@@ -238,8 +229,7 @@ Do not claim Task 2 report completion: questions 4-7 remain pending, as do Task 
 and full-lab packaging. A validation improvement establishes predictive utility
 on that split; it does not by itself prove how the LLM uses geographic knowledge.
 
-Troubleshooting order
-=====================
+## Troubleshooting order
 Missing input: check docs/INPUTS.md and file provenance; do not fabricate data.
 Shape error: inspect (N,), (N, 2), (2, D), (2,) and coordinate order.
 NaN/inf or rising smooth loss: check float64 conversion and learning rate first.
@@ -250,4 +240,3 @@ Reload mismatch: check layer, transpose, bias, row order, preprocessing folding.
 
 Finish line: finite reproducible predictions, a documented validation-selected
 configuration, a verified raw-feature .npz artifact, and a recorded layer.
-"""

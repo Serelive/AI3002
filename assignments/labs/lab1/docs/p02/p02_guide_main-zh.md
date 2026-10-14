@@ -1,6 +1,6 @@
 # Lab 1 / p02：Task 2 主体实施指南
 
-英文对应文件：[p02_guide_main-eng.py](p02_guide_main-eng.py)。该 `.py` 文件按用户要求保存为 Python 文档字符串，运行它不会训练模型。
+英文对应文件：[p02_guide_main-eng.md](p02_guide_main-eng.md)。其中的代码片段是实施示例，并非完整训练脚本。
 
 ## 0. 范围、依据与当前状态
 
