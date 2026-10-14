@@ -1,5 +1,3 @@
-from urllib.request import proxy_bypass
-
 import numpy as np
 
 class LinearRegressionModel:
@@ -97,5 +95,5 @@ class LogisticRegressionModel:
         probabilities = np.exp(-np.logaddexp(0.0, -scores))
         residual = probabilities - targets
         gradient_w = 1 / features.shape[0] * features.T @ residual + self.l1 * np.sign(weights) + 2 * self.l2 * weights
-        gradient_b = 1 * np.mean(residual)
+        gradient_b = np.mean(residual)
         return gradient_w, gradient_b
