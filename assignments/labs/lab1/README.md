@@ -2,7 +2,7 @@
 
 For Phase 1 report experiments, see [the questions 1–3 guide](docs/p01/p01_guide_questions.md).
 
-For Task 2, start with the [actionable main checklist](docs/p02/p02_checklist_main.md), then use the [roadmap](docs/roadmap.md) and main-body guides in [English](docs/p02/p02_guide_main-eng.md) and [Chinese](docs/p02/p02_guide_main-zh.md). The checklist provides eleven separately reviewable steps, based on the October 15 CLI. Existing training options are implemented; completion of the training, selection, and export steps requires the listed review evidence. The guides distinguish existing commands from proposed options and defer questions 4–7. No Task 2 submission artifact has been selected. Step 1 (`p02-i00`) passed on October 15: three regression tests and CLI-help checks; evidence is in `output/p02/start-check.txt`.
+For Task 2, follow the [minimal main checklist](docs/p02/p02_checklist_main.md): train a working coordinate predictor, make a small validation comparison, and export the required weights and layer. The [roadmap](docs/roadmap.md) now follows these priorities; the earlier detailed guides are optional references. Regression/CLI checks (`p02-i00`) and input checks (`p02-i01`) passed on October 15. No selected Task 2 model has been verified in this checklist update. Additional engineering gates from the former eleven-step checklist are retired.
 
 Status: linear-regression fixes pass focused checks, including the stale-parameter regression covered in [p01-i03 review-r03](docs/p01/p01-i03_review-r03.md). Logistic regression is implemented but awaits review; full-data experiments remain pending.
 
@@ -15,14 +15,12 @@ Start with [the quick guide](docs/reference_quickguide.md) for reading order, fi
 - Planned deliverables: code, PDF report, two `.npz` parameter files and layer numbers. No final deliverables selected yet.
 - Environment: reuse the root `.venv`; NumPy/pandas for core scripts, scikit-learn/matplotlib for comparisons and plots. Dependency setup is not part of this orientation task.
 
-After installing dependencies and implementing the model stubs, run from the course repository root:
+The current training CLI can be inspected from the course repository root:
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/train1.py
-.venv/bin/python assignments/labs/lab1/main/train23.py world 11 assignments/labs/lab1/output/world.npz
-.venv/bin/python assignments/labs/lab1/main/train23.py truth 11 assignments/labs/lab1/output/truth.npz
+.venv/bin/python assignments/labs/lab1/main/train23.py --help
 ```
 
-These are starting commands, not executed or validated training results; layer 11 is an initial baseline choice. Record configurations, seeds, and results when experiments begin.
+For training, pass the task/layer and explicit `--output_dir`, `--lr`, `--l1`, `--l2`, and `--max_iter` settings. Record the actual selected command and score after the experiment; no training settings are claimed as validated here.
 
 Task 2 Step 2 (`p02-i01`) passed on October 15. Reproduce the six-pair input validation from the course root with `.venv/bin/python assignments/labs/lab1/main/p02_check_world.py`. Evidence: `output/p02/input-check.txt`. This validates shapes, types, finite values, coordinate bounds, and target order/equality; it does not independently prove the semantic alignment of supplied feature rows.

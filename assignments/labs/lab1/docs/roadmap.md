@@ -26,25 +26,18 @@ Paths above are relative to `lab1`, except `instruction.pdf`, which is in `docs/
 
 Source: `docs/instruction.pdf` §2.2, with export details in Appendix C.1. Detailed main-body guides: [English](p02/p02_guide_main-eng.md) and [中文](p02/p02_guide_main-zh.md). These are plans, not completed experiment results.
 
-### Main implementation
+### Main implementation — minimal path
 
-Use the [actionable main checklist](p02/p02_checklist_main.md) for exact edits, hand-in artifacts, commands, and pass/fail criteria. It follows the October 15 CLI; the older guides' CLI examples predate that interface. Submit one checklist step at a time. The suffixes below split the existing increments without renumbering later work.
+Follow the [minimal main checklist](p02/p02_checklist_main.md). It replaces the eleven-step workflow; the detailed guides are optional references. The handout gives Task 3 more model-performance weight, so prioritize these outcomes and limit Task 2 tuning.
 
-| Increment | Concrete deliverable | Checklist step |
-| --- | --- | --- |
-| `p02-i00` | Save the regression-test results and current CLI help in `start-check.txt`. | 1 |
-| `p02-i01` | Write `p02_check_world.py`; assert the six input pairs' shapes, types, finite values, and target order. | 2 |
-| `p02-i02` | Write a two-output toy check with known weights and biases; assert prediction and parameter equality. | 3 |
-| `p02-i03a` | Reject invalid CLI settings and existing output files; capture rejection evidence. | 4 |
-| `p02-i03b` | Record training-objective history and actual iterations; fail on non-finite inputs or updates. | 5 |
-| `p02-i03c` | Compute a conservative rate and save finite, decreasing-loss layer-11 baseline runs. | 6 |
-| `p02-i04` | Export configuration, train/validation metrics, training-mean baseline, histories, and ordered predictions per run. | 7 |
-| `p02-i05a` | Execute the recorded 15-configuration layer/L2 plan and aggregate results, including failures. | 8 |
-| `p02-i05b` | Repeat the best candidates with larger iteration budgets and record a selection using the predefined rule. | 9 |
-| `p02-i06` | Write a fresh-process export checker; assert schema, raw-feature predictions, and metric equality. | 10 |
-| `p02-i07` | Reproduce the selected run, save the candidate and layer file, and record exact commands in the README. | 11 |
+| Priority / increment | Outcome |
+| --- | --- |
+| Already complete: `p02-i00`, `p02-i01` | Regression/CLI and input checks passed; reuse the results. |
+| Highest: `p02-i03` | Train one working two-output coordinate predictor; obtain finite validation predictions and save its weights. Library-trained final weights are permitted by §2.2. |
+| Next: `p02-i05` | Make a small layer/regularization comparison using validation MSE; record the selected settings. No fixed search grid is required. |
+| Essential finish: `p02-i06` | Save the specified float64 weight/bias arrays and layer; reload once and compare raw-feature predictions. Retain the runnable code and command. |
 
-**Main-body completion check:** a reproducible validation-selected configuration, finite predictions, verified raw-feature inference from the saved `.npz`, and a recorded layer integer. The detailed guides defer questions 4–7; this milestone does not complete the report or full lab.
+The old additional implementation gates are retired, not unfinished prerequisites. Add engineering refinements only when they solve a concrete problem. **Main-body completion:** a working selected model, correctly formatted `.npz`, a recorded layer, and a runnable command. Report work and full-lab packaging remain separate.
 
 ### Report questions — deferred
 
