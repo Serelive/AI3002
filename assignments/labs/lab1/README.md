@@ -24,3 +24,5 @@ After installing dependencies and implementing the model stubs, run from the cou
 ```
 
 These are starting commands, not executed or validated training results; layer 11 is an initial baseline choice. Record configurations, seeds, and results when experiments begin.
+
+Task 2 Step 2 (`p02-i01`) passed on October 15. Reproduce the six-pair input validation from the course root with `.venv/bin/python assignments/labs/lab1/main/p02_check_world.py`. Evidence: `output/p02/input-check.txt`. This validates shapes, types, finite values, coordinate bounds, and target order/equality; it does not independently prove the semantic alignment of supplied feature rows.

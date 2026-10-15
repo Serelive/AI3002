@@ -46,7 +46,7 @@ The older bilingual guides provide equation explanations. For CLI spelling and t
 
 ## Step 2 — Write a six-file input check (`p02-i01`)
 
-- [ ] **Do:** Create `main/p02_check_world.py`. Import `load_split` from `train23`, loop over layers `(11, 23, 35)` and splits `("train", "valid")`, and assert the following for each loaded pair:
+- [x] **Do:** Create `main/p02_check_world.py`. Import `load_split` from `train23`, loop over layers `(11, 23, 35)` and splits `("train", "valid")`, and assert the following for each loaded pair:
 
 | Property | Train | Validation |
 | --- | --- | --- |
@@ -61,6 +61,8 @@ Read each CSV in its original order and assert that `Y[:, 0]` equals its `latitu
 **Hand in:** `main/p02_check_world.py`, its exact invocation, and `output/p02/input-check.txt`.
 
 **Pass:** six result lines, the final PASS line, and exit status 0. No sorting, filtering, or mutation of input files. These checks establish the loader's contract; they cannot independently prove semantic alignment of the supplied feature rows.
+
+**Verified October 15, 2026:** all six input pairs passed shape, float64, finite-value, coordinate-bound, CSV-order, and cross-layer target checks. The script printed `PASS: 6 input pairs` and exited with status 0. Evidence: `output/p02/input-check.txt`.
 
 ## Step 3 — Prove the two-output layout on a tiny example (`p02-i02`)
 
