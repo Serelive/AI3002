@@ -28,16 +28,21 @@ Source: `docs/instruction.pdf` §2.2, with export details in Appendix C.1. Detai
 
 ### Main implementation
 
-| Increment | Goal and completion evidence |
-| --- | --- |
-| `p02-i00` | Check the Task 1 linear model and trace `train23.py`'s world branch; identify current defaults and missing experiment controls. Logistic-regression review is not a prerequisite for Task 2. |
-| `p02-i01` | Validate world inputs and row alignment: 500 training / 130 validation rows, 2,560 features, layers 11/23/35, targets ordered latitude then longitude; compute in float64. |
-| `p02-i02` | Confirm the two independent regressions implement the double-output map; verify `(N, 2)` predictions and `X @ W.T + b` equivalence. |
-| `p02-i03` | Expose training settings, add finite-value checks and training logs, and establish a stable layer-11 baseline before searching. |
-| `p02-i04` | Record training/validation MSE, per-coordinate errors, a training-mean baseline, runtime, configuration, and ordered validation predictions under `output/p02/`. |
-| `p02-i05` | Compare supplied layers and a small regularization grid using validation data; check convergence and document the selection rule. Fit preprocessing only on training data if used. |
-| `p02-i06` | Export and reload float64 `weights (2, 2560)` and `bias (2,)`, latitude first; fold any preprocessing into raw-feature parameters and check prediction equality. Record the layer separately. |
-| `p02-i07` | Reproduce the selected candidate in a fresh process; record its exact command and evidence in the lab README. Select submission files deliberately when packaging begins. |
+Use the [actionable main checklist](p02_checklist_main.md) for exact edits, hand-in artifacts, commands, and pass/fail criteria. It follows the October 15 CLI; the older guides' CLI examples predate that interface. Submit one checklist step at a time. The suffixes below split the existing increments without renumbering later work.
+
+| Increment | Concrete deliverable | Checklist step |
+| --- | --- | --- |
+| `p02-i00` | Save the regression-test results and current CLI help in `start-check.txt`. | 1 |
+| `p02-i01` | Write `check_world.py`; assert the six input pairs' shapes, types, finite values, and target order. | 2 |
+| `p02-i02` | Write a two-output toy check with known weights and biases; assert prediction and parameter equality. | 3 |
+| `p02-i03a` | Reject invalid CLI settings and existing output files; capture rejection evidence. | 4 |
+| `p02-i03b` | Record training-objective history and actual iterations; fail on non-finite inputs or updates. | 5 |
+| `p02-i03c` | Compute a conservative rate and save finite, decreasing-loss layer-11 baseline runs. | 6 |
+| `p02-i04` | Export configuration, train/validation metrics, training-mean baseline, histories, and ordered predictions per run. | 7 |
+| `p02-i05a` | Execute the recorded 15-configuration layer/L2 plan and aggregate results, including failures. | 8 |
+| `p02-i05b` | Repeat the best candidates with larger iteration budgets and record a selection using the predefined rule. | 9 |
+| `p02-i06` | Write a fresh-process export checker; assert schema, raw-feature predictions, and metric equality. | 10 |
+| `p02-i07` | Reproduce the selected run, save the candidate and layer file, and record exact commands in the README. | 11 |
 
 **Main-body completion check:** a reproducible validation-selected configuration, finite predictions, verified raw-feature inference from the saved `.npz`, and a recorded layer integer. The detailed guides defer questions 4–7; this milestone does not complete the report or full lab.
 
