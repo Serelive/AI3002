@@ -19,7 +19,7 @@
 先运行已有的线性回归检查，并查看训练接口：
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/test_linear_regression.py
+.venv/bin/python assignments/labs/lab1/main/p01_test_linear-regression.py
 .venv/bin/python assignments/labs/lab1/main/train23.py --help
 ```
 

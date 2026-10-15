@@ -31,7 +31,7 @@ Added `main/test_linear_regression.py`. All three tests passed:
 Reproduce from the repository root:
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/test_linear_regression.py
+.venv/bin/python assignments/labs/lab1/main/p01_test_linear-regression.py
 ```
 
 The logistic-regression class was verified unchanged from the start of this review. Its correctness and full-dataset training were not assessed.
