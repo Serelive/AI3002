@@ -35,7 +35,7 @@ Suggested script: `main/question3_comparison.py`; this answer can wait until Tas
 For each script, record the seed, settings, and run command. Example from the **course repository root**, once the script exists:
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/question1_paths.py
+.venv/bin/python assignments/labs/lab1/main/p01_question1_paths.py
 ```
 
 These scripts are proposed, not yet created or executed. The referenced slides must be consulted before claiming their figures have been reproduced.
