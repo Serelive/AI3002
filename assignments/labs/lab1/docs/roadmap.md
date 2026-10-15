@@ -28,7 +28,7 @@ Source: `docs/instruction.pdf` §2.2, with export details in Appendix C.1. Detai
 
 ### Main implementation
 
-Use the [actionable main checklist](p02_checklist_main.md) for exact edits, hand-in artifacts, commands, and pass/fail criteria. It follows the October 15 CLI; the older guides' CLI examples predate that interface. Submit one checklist step at a time. The suffixes below split the existing increments without renumbering later work.
+Use the [actionable main checklist](p02/p02_checklist_main.md) for exact edits, hand-in artifacts, commands, and pass/fail criteria. It follows the October 15 CLI; the older guides' CLI examples predate that interface. Submit one checklist step at a time. The suffixes below split the existing increments without renumbering later work.
 
 | Increment | Concrete deliverable | Checklist step |
 | --- | --- | --- |

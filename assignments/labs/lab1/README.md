@@ -2,7 +2,7 @@
 
 For Phase 1 report experiments, see [the questions 1–3 guide](docs/p01/p01_guide_questions.md).
 
-For Task 2, start with the [actionable main checklist](docs/p02_checklist_main.md), then use the [roadmap](docs/roadmap.md) and main-body guides in [English](docs/p02/p02_guide_main-eng.md) and [Chinese](docs/p02/p02_guide_main-zh.md). The checklist provides eleven separately reviewable steps, based on the October 15 CLI. Existing training options are implemented; completion of the training, selection, and export steps requires the listed review evidence. The guides distinguish existing commands from proposed options and defer questions 4–7. No Task 2 submission artifact has been selected.
+For Task 2, start with the [actionable main checklist](docs/p02_checklist_main.md), then use the [roadmap](docs/roadmap.md) and main-body guides in [English](docs/p02/p02_guide_main-eng.md) and [Chinese](docs/p02/p02_guide_main-zh.md). The checklist provides eleven separately reviewable steps, based on the October 15 CLI. Existing training options are implemented; completion of the training, selection, and export steps requires the listed review evidence. The guides distinguish existing commands from proposed options and defer questions 4–7. No Task 2 submission artifact has been selected. Step 1 (`p02-i00`) passed on October 15: three regression tests and CLI-help checks; evidence is in `output/p02/start-check.txt`.
 
 Status: linear-regression fixes pass focused checks, including the stale-parameter regression covered in [p01-i03 review-r03](docs/p01/p01-i03_review-r03.md). Logistic regression is implemented but awaits review; full-data experiments remain pending.
 

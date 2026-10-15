@@ -31,16 +31,18 @@ The older bilingual guides provide equation explanations. For CLI spelling and t
 
 ## Step 1 — Save the starting checks (`p02-i00`)
 
-- [ ] **Do:** Run these commands and save their combined output and exit status in `output/p02/start-check.txt` (create the output directory first):
+- [x] **Do:** Run these commands and save their combined output and exit status in `output/p02/start-check.txt` (create the output directory first):
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/test_linear_regression.py
+.venv/bin/python assignments/labs/lab1/main/p01_test_linear-regression.py
 .venv/bin/python assignments/labs/lab1/main/train23.py --help
 ```
 
 **Hand in:** `start-check.txt`; no code change is required if both commands pass.
 
 **Pass:** the regression script reports all three tests passing; both processes exit with status 0; help lists all five options above. If a regression fails, fix it before training on world data. Do not interpret these toy tests as a full-data performance result.
+
+**Verified October 15, 2026:** all three regression tests passed; CLI help listed all five options; both exit statuses were 0. Evidence: `output/p02/start-check.txt`. The command above uses the renamed regression-test file.
 
 ## Step 2 — Write a six-file input check (`p02-i01`)
 
