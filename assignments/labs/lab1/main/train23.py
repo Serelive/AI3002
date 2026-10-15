@@ -35,6 +35,10 @@ def main() -> None:
     parser.add_argument("layer", type=int)
     parser.add_argument("output", type=Path, help="Path to the output .npz file")
     # 你可以在此处加入更多的命令行参数，例如学习率、训练轮数等
+    parser.add_argument("--lr", type = float, default=0.01)
+    parser.add_argument("--max_iter", type = int, default = 10000)
+    parser.add_argument("--l1", type = float, default = 0.01)
+    parser.add_argument("--l2", type = float, default = 0.01)
     args = parser.parse_args()
 
     # 加载数据
@@ -46,8 +50,20 @@ def main() -> None:
         latitude_targets = train_y[:, 0]
         longitude_targets = train_y[:, 1]
 
-        latitude_model = LinearRegressionModel(train_x.shape[1])
-        longitude_model = LinearRegressionModel(train_x.shape[1])
+        latitude_model = LinearRegressionModel(
+            n_features=train_x.shape[1],
+            l1=args.l1,
+            l2=args.l2,
+            lr=args.lr,
+            max_iter=args.max_iter,
+        )
+        longitude_model = LinearRegressionModel(
+            n_features=train_x.shape[1],
+            l1=args.l1,
+            l2=args.l2,
+            lr=args.lr,
+            max_iter=args.max_iter,
+        )
         latitude_model.fit(train_x, latitude_targets)
         longitude_model.fit(train_x, longitude_targets)
 
