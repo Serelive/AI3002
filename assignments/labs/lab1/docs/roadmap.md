@@ -33,7 +33,7 @@ Use the [actionable main checklist](p02/p02_checklist_main.md) for exact edits, 
 | Increment | Concrete deliverable | Checklist step |
 | --- | --- | --- |
 | `p02-i00` | Save the regression-test results and current CLI help in `start-check.txt`. | 1 |
-| `p02-i01` | Write `check_world.py`; assert the six input pairs' shapes, types, finite values, and target order. | 2 |
+| `p02-i01` | Write `p02_check_world.py`; assert the six input pairs' shapes, types, finite values, and target order. | 2 |
 | `p02-i02` | Write a two-output toy check with known weights and biases; assert prediction and parameter equality. | 3 |
 | `p02-i03a` | Reject invalid CLI settings and existing output files; capture rejection evidence. | 4 |
 | `p02-i03b` | Record training-objective history and actual iterations; fail on non-finite inputs or updates. | 5 |

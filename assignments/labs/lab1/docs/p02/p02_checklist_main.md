@@ -11,13 +11,13 @@ For each numbered step, send its ID, changed code paths, exact command, and evid
 ```text
 [p02-i01][check]
 Step 2 ready.
-Code: main/check_world.py
-Command: .venv/bin/python assignments/labs/lab1/main/check_world.py
+Code: main/p02_check_world.py
+Command: .venv/bin/python assignments/labs/lab1/main/p02_check_world.py
 Evidence: output/p02/input-check.txt
 Please evaluate the Step 2 acceptance criteria.
 ```
 
-Mark a box complete only after every acceptance criterion passes. If one fails, submit the failure output and leave the box unchecked. Here, “submit” means request local review, not upload to the course platform. Keep generated evidence in `output/p02/`; keep runnable scripts in `main/`. No testing framework or per-increment source directories are needed.
+Mark a box complete only after every acceptance criterion passes. If one fails, submit the failure output and leave the box unchecked. Here, “submit” means request local review, not upload to the course platform. Keep generated evidence in `output/p02/`; keep new runnable scripts in `main/` with the `p02_` prefix. Save all new Task 2 documents in `docs/p02/`, following [the working agreement](../agreement.md). Existing shared files such as `model.py` and `train23.py` retain their names. No testing framework or per-increment source directories are needed.
 
 ## Current starting point (inspected October 15, 2026)
 
@@ -46,7 +46,7 @@ The older bilingual guides provide equation explanations. For CLI spelling and t
 
 ## Step 2 — Write a six-file input check (`p02-i01`)
 
-- [ ] **Do:** Create `main/check_world.py`. Import `load_split` from `train23`, loop over layers `(11, 23, 35)` and splits `("train", "valid")`, and assert the following for each loaded pair:
+- [ ] **Do:** Create `main/p02_check_world.py`. Import `load_split` from `train23`, loop over layers `(11, 23, 35)` and splits `("train", "valid")`, and assert the following for each loaded pair:
 
 | Property | Train | Validation |
 | --- | --- | --- |
@@ -58,13 +58,13 @@ The older bilingual guides provide equation explanations. For CLI spelling and t
 
 Read each CSV in its original order and assert that `Y[:, 0]` equals its `latitude` column and `Y[:, 1]` equals its `longitude` column. Assert that all layers of a split load the same targets. Print one result line per split/layer and finish with `PASS: 6 input pairs` only after all assertions succeed.
 
-**Hand in:** `main/check_world.py`, its exact invocation, and `output/p02/input-check.txt`.
+**Hand in:** `main/p02_check_world.py`, its exact invocation, and `output/p02/input-check.txt`.
 
 **Pass:** six result lines, the final PASS line, and exit status 0. No sorting, filtering, or mutation of input files. These checks establish the loader's contract; they cannot independently prove semantic alignment of the supplied feature rows.
 
 ## Step 3 — Prove the two-output layout on a tiny example (`p02-i02`)
 
-- [ ] **Do:** Create `main/check_world_model.py` using the real `LinearRegressionModel`. Use:
+- [ ] **Do:** Create `main/p02_check_world_model.py` using the real `LinearRegressionModel`. Use:
 
 ```python
 X = np.array([[-1., -1.], [-1., 1.], [1., -1.], [1., 1.]])
@@ -149,11 +149,11 @@ Use `mean_coordinate = train_y.mean(axis=0)` for the constant predictor; never f
 
 ## Step 8 — Run a fixed, small selection experiment (`p02-i05a`)
 
-- [ ] **Do:** Before running, write `output/p02/search-plan.json` with layers `[11, 23, 35]`, L2 values `[0, 0.0001, 0.01, 1, 100]`, `l1=0`, no preprocessing, and one common iteration budget initially set to `2000`. Recompute the Step 6 rate for each layer/L2 combination. Use a distinct directory for each of the 15 configurations. A simple loop script in `main/` is sufficient.
+- [ ] **Do:** Before running, write `output/p02/search-plan.json` with layers `[11, 23, 35]`, L2 values `[0, 0.0001, 0.01, 1, 100]`, `l1=0`, no preprocessing, and one common iteration budget initially set to `2000`. Recompute the Step 6 rate for each layer/L2 combination. Use a distinct directory for each of the 15 configurations. Create a simple loop script named `main/p02_search_world.py`.
 
 Aggregate results into `output/p02/search.csv`: run directory, layer, l2, lr, iteration budget, train/validation overall and coordinate MSEs, elapsed seconds, success/failure, and failure reason. Do not substitute a score for failed runs.
 
-**Hand in:** the plan, loop script or exact list of commands, search CSV, and successful run directories with Step 7 artifacts.
+**Hand in:** the plan, `main/p02_search_world.py` and its exact invocation, search CSV, and successful run directories with Step 7 artifacts.
 
 **Pass:** the table contains each planned combination exactly once; successful entries match their saved metrics; unsuccessful entries contain a real error reason. At least one valid candidate exists. All runs use training data only for parameter fitting and identical metric definitions. A completed search is a budget-limited comparison, not proof that every objective was optimized to convergence.
 
@@ -171,7 +171,7 @@ Select the finite run with the lowest validation MSE among the original and repe
 
 ## Step 10 — Verify the selected file in a fresh process (`p02-i06`)
 
-- [ ] **Do:** Write `main/check_world_export.py` accepting a run directory. Load its layer from `config.json`, its raw validation features, and its `.npz` using `allow_pickle=False`. Read the saved prediction CSV independently.
+- [ ] **Do:** Write `main/p02_check_world_export.py` accepting a run directory. Load its layer from `config.json`, its raw validation features, and its `.npz` using `allow_pickle=False`. Read the saved prediction CSV independently.
 
 **Hand in:** the script, its exact invocation, and `output/p02/export-check.txt`.
 
