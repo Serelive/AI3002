@@ -33,12 +33,16 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("task", choices=("world", "truth"))
     parser.add_argument("layer", type=int)
-    parser.add_argument("output", type=Path, help="Path to the output .npz file")
     # 你可以在此处加入更多的命令行参数，例如学习率、训练轮数等
+    parser.add_argument("--output_dir",
+                        type=Path,
+                        help="Path to the output folder",
+                        default=Path(__file__).parent.parent / "output" / "world",
+                        )
     parser.add_argument("--lr", type = float, default=0.01)
-    parser.add_argument("--max_iter", type = int, default = 10000)
     parser.add_argument("--l1", type = float, default = 0.01)
     parser.add_argument("--l2", type = float, default = 0.01)
+    parser.add_argument("--max_iter", type = int, default = 10000)
     args = parser.parse_args()
 
     # 加载数据
@@ -88,15 +92,16 @@ def main() -> None:
         print(f"Validation accuracy: {np.mean((prediction >= 0.5) == valid_y):.4f}")
 
     # 创造输出目录（如果不存在的话）
-    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    output = args.output_dir / f"{args.task}_layer{args.layer}.npz"
 
     # 输出文件的名称被 output 参数指定，文件格式为 .npz
     np.savez(
-        args.output,
+        output,
         weights=np.asarray(weights, dtype=np.float64),
         bias=np.asarray(bias, dtype=np.float64),
     )
-    print(f"Saved {args.output} (layer {args.layer})")
+    print(f"Saved {output} (layer {args.layer})")
 
 
 if __name__ == "__main__":
