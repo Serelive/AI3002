@@ -2,7 +2,7 @@
 
 Use this checklist to submit **one small increment for review at a time**. This document covers coordinate prediction only; it contains no Task 2 report-question assignments. All boxes start unchecked: existing code may satisfy some items, but completion requires the evidence specified below.
 
-Paths are relative to `assignments/labs/lab1/`, except shell commands, which run from the **course repository root** using `.venv/bin/python`. Source requirements: `docs/instruction.pdf` §2.2 and Appendix C.1. The check thresholds, filenames, and experiment budget below are local workflow choices, not instructor grading rules.
+Paths are relative to `../..`, except shell commands, which run from the **course repository root** using `.venv/bin/python`. Source requirements: `docs/instruction.pdf` §2.2 and Appendix C.1. The check thresholds, filenames, and experiment budget below are local workflow choices, not instructor grading rules.
 
 ## How to submit a step
 
