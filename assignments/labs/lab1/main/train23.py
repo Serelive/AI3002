@@ -1,6 +1,6 @@
 """Train the coordinate or truth probe and save its parameters."""
 
-import argparse
+
 from pathlib import Path
 
 import numpy as np
@@ -56,22 +56,7 @@ def reverse_weights_bias(
     bias_original = model.bias - mean @ weights_original
     return weights_original, bias_original
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("task", choices=("world", "truth"))
-    parser.add_argument("layer", type=int)
-    # 你可以在此处加入更多的命令行参数，例如学习率、训练轮数等
-    parser.add_argument("--output_dir",
-                        type=Path,
-                        help="Path to the output folder",
-                        default=Path(__file__).parent.parent / "output" / "world",
-                        )
-    parser.add_argument("--lr", type = float, default=0.01)
-    parser.add_argument("--l1", type = float, default = 0.01)
-    parser.add_argument("--l2", type = float, default = 0.01)
-    parser.add_argument("--max_iter", type = int, default = 10000)
-    args = parser.parse_args()
-
+def main(args) -> None:
     # 加载数据
     train_x, train_y = load_split(args.task, "train", args.layer)
     valid_x, valid_y = load_split(args.task, "valid", args.layer)
@@ -151,4 +136,19 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("task", choices=("world", "truth"))
+    parser.add_argument("layer", type=int)
+    # 你可以在此处加入更多的命令行参数，例如学习率、训练轮数等
+    parser.add_argument("--output_dir",
+                        type=Path,
+                        help="Path to the output folder",
+                        default=Path(__file__).parent.parent / "output" / "world",
+                        )
+    parser.add_argument("--lr", type = float, default=0.01)
+    parser.add_argument("--l1", type = float, default = 0.01)
+    parser.add_argument("--l2", type = float, default = 0.01)
+    parser.add_argument("--max_iter", type = int, default = 10000)
+    args = parser.parse_args()
+    main(args)
