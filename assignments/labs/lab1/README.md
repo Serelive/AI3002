@@ -28,3 +28,5 @@ Task 2 Step 2 (`p02-i01`) passed on October 15. Reproduce the six-pair input val
 Task 2 numerical diagnosis (October 16): [NaN review](docs/p02/p02-i03_review_nan.md) identifies an excessive layer-11 learning rate and records a finite 10,000-update rerun at a smaller rate. The notebook correction and selection of a valid exported artifact remain pending.
 
 For the next preprocessing decision, see the [standardization guide](docs/p02/p02-i05_guide_standardize.md): a single pilot, shared helpers in `train23.py`, and raw-feature parameter export. Training code is unchanged by this documentation update.
+
+Standardization review (October 17): [review findings](docs/p02/p02-i05_review_standardization.md) confirm correct world preprocessing and raw-feature export. Two truth-branch regressions need correction: inconsistent feature scales and undefined export variables.
