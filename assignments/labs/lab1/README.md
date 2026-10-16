@@ -30,3 +30,5 @@ Task 2 numerical diagnosis (October 16): [NaN review](docs/p02/p02-i03_review_na
 For the next preprocessing decision, see the [standardization guide](docs/p02/p02-i05_guide_standardize.md): a single pilot, shared helpers in `train23.py`, and raw-feature parameter export. Training code is unchanged by this documentation update.
 
 Standardization review (October 17): [review findings](docs/p02/p02-i05_review_standardization.md) confirm correct world preprocessing and raw-feature export. Two truth-branch regressions need correction: inconsistent feature scales and undefined export variables.
+
+The [Task 2 comparison review](docs/p02/p02-i05_review_comparison.md) identifies four fixes before the grid search: supply parser positionals, preserve the selected model, reject non-finite results before export, and save the results table under `output/p02/`.
