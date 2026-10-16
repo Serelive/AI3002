@@ -56,7 +56,7 @@ def reverse_weights_bias(
     bias_original = model.bias - mean @ weights_original
     return weights_original, bias_original
 
-def main(args) -> None:
+def main(args) -> float:
     # 加载数据
     train_x, train_y = load_split(args.task, "train", args.layer)
     valid_x, valid_y = load_split(args.task, "valid", args.layer)
@@ -117,11 +117,6 @@ def main(args) -> None:
     if prediction.shape != valid_y.shape:
         raise ValueError(f"Expected predictions with shape {valid_y.shape}")
 
-    if args.task == "world":
-        print(f"Validation MSE: {np.mean((prediction - valid_y) ** 2):.4f}")
-    else:
-        print(f"Validation accuracy: {np.mean((prediction >= 0.5) == valid_y):.4f}")
-
     # 创造输出目录（如果不存在的话）
     args.output_dir.mkdir(parents=True, exist_ok=True)
     output = args.output_dir / f"{args.task}_layer{args.layer}.npz"
@@ -133,6 +128,15 @@ def main(args) -> None:
         bias=np.asarray(bias_original, dtype=np.float64),
     )
     print(f"Saved {output} (layer {args.layer})")
+
+    if args.task == "world":
+        mse = np.mean((prediction - valid_y) ** 2)
+        print(f"Validation MSE: {mse:.4f}")
+        return mse
+    else:
+        accuracy = np.mean((prediction >= 0.5) == valid_y)
+        print(f"Validation accuracy: {accuracy:.4f}")
+        return accuracy
 
 
 if __name__ == "__main__":
