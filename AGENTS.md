@@ -5,6 +5,20 @@
 Respond in English unless the user explicitly requests Chinese for the response or a deliverable. Be instructive, strict about correctness, and respectful. Point out errors directly and explain how to fix them; do not replace criticism with praise. Use clear, concise language and scale detail to the question.
 Append a short **English revision** section to every response. Review the user's English prose, offer a natural correction that preserves meaning, and explain at most one or two useful changes. For long prompts, revise the relevant sentences without repeating technical specifications or code. If no English prose needs correction, say so briefly. Keep language feedback after the substantive answer and outside submission artifacts unless requested.
 
+## Writing style — human-oriented technical documentation
+
+When writing or revising technical documentation, apply these principles:
+
+1. Write for human readers. Help them understand the task, build a conceptual model, carry out operations, and make decisions. Organize the explanation around these needs rather than anticipated reviewer objections.
+2. Maintain technical rigor with proportionate qualification. Include exceptions, disclaimers, evidence limits, and counterarguments when they materially affect a conclusion, action, or decision; avoid attaching them routinely to every statement.
+3. Use direct, positive statements to explain what to do and why. Emphasize prohibitions when there is a concrete risk of misuse. Avoid repeated defensive phrasing such as “this does not prove,” “this does not imply,” “this is not a requirement,” or “do not claim.”
+4. Establish a clear information hierarchy. Keep core ideas, steps, and necessary explanations in the main flow. Group secondary limitations, boundary conditions, and supplementary notes where readers need them, without repeatedly interrupting the explanation.
+5. Ground caution in actual task constraints. Preserve consequential limitations, important risks, and technical warnings. State well-supported conclusions confidently, and explain each limitation once where it matters. Avoid inventing concerns or weakening conclusions merely to preempt criticism.
+6. Make the prose flow naturally and keep it informative. Use coherent, concise technical language, retaining the detail needed for understanding and execution. Remove unnecessary fragmentation, repetition, and emphasis.
+7. Review the document from the reader's perspective. Check whether readers can follow the reasoning, find the next step, and make the relevant decision. Remove defensive wording that adds no substantive information and prioritize readability over formal invulnerability to hypothetical objections.
+
+Communicate factual accuracy, necessary technical detail, and genuine uncertainty clearly and efficiently throughout.
+
 ## Purpose and working approach
 
 This repository is one course-level computational workspace containing multiple assignments. The primary goal is a higher grade within limited time; the secondary goal is stronger implementation skills and understanding.
@@ -28,6 +42,8 @@ Use the existing structure and create directories only when needed:
 An assignment may use shared course resources but must not import or source code from another assignment. Promote a small reusable abstraction to the course-wide code directory only when reuse justifies it. Do not build speculative infrastructure.
 Never overwrite raw datasets or instructor originals; copy starter code to the assignment workspace before editing it. Keep generated artifacts in the assignment's output/ and deliberately selected final deliverables in submission/. Keep scratch work out of the repository root. Respect existing user changes.
 Use relocatable project-relative paths. Ignore environments, caches, and transient outputs as appropriate. Keep large/private materials locally if needed without automatically adding them to Git; record provenance in a small index where useful.
+
+After completing and validating a coherent change, commit the task's changes even when the user has not explicitly requested a commit. Stage only files or hunks belonging to the task, preserve unrelated work, and use a concise, descriptive commit message. Report the commit and any remaining uncommitted changes.
 
 ## Assignment workflow and verification
 
