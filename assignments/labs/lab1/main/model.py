@@ -25,7 +25,7 @@ class LinearRegressionModel:
         # 训练模型；features 为 (N, D)，targets 为 (N,)。
         weights = np.zeros(self.n_features, dtype=np.float64)
         bias = np.float64(0.0)
-        for iter in range(self.max_iter):
+        for i in range(self.max_iter):
             gradient = self._gradient(weights, bias, features, targets)
             weights = weights - self.lr * gradient[0]
             bias = bias - self.lr * gradient[1]
@@ -72,7 +72,7 @@ class LogisticRegressionModel:
         # 训练模型；features 为 (N, 2560)，targets 为 (N,) 的 0/1 标签。
         weights = np.zeros(self.n_features, dtype=np.float64)
         bias = np.float64(0.0)
-        for iter in range(self.max_iter):
+        for i in range(self.max_iter):
             gradient = self._gradient(weights, bias, features, targets)
             weights = weights - self.lr * gradient[0]
             bias = bias - self.lr * gradient[1]
