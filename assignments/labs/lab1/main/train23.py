@@ -47,12 +47,14 @@ def transform_features(
 ) -> np.ndarray:
     return (features - mean) / std
 
-def reverse_features(
-    standardized_features: np.ndarray,
+def reverse_weights_bias(
+    model: LinearRegressionModel,
     mean: np.ndarray,
     std: np.ndarray
-) -> np.ndarray:
-    return standardized_features * std + mean
+) -> tuple[np.ndarray, np.ndarray]:
+    weights_original = model.weights / std
+    bias_original = model.bias - mean @ weights_original
+    return weights_original, bias_original
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -74,39 +76,58 @@ def main() -> None:
     train_x, train_y = load_split(args.task, "train", args.layer)
     valid_x, valid_y = load_split(args.task, "valid", args.layer)
 
+    # 获取标准化参数
+    train_x_mean, train_x_std = fit_standardizers(train_x)
+
+    # 标准化
+    standardized_train_x = transform_features(train_x, train_x_mean, train_x_std)
+    standardized_valid_x = transform_features(valid_x, train_x_mean, train_x_std)
+
     if args.task == "world":
         # 纬度和经度各训练一个一维线性回归模型。
         latitude_targets = train_y[:, 0]
         longitude_targets = train_y[:, 1]
 
+        # 训练模型
         latitude_model = LinearRegressionModel(
-            n_features=train_x.shape[1],
+            n_features=standardized_train_x.shape[1],
             l1=args.l1,
             l2=args.l2,
             lr=args.lr,
             max_iter=args.max_iter,
         )
         longitude_model = LinearRegressionModel(
-            n_features=train_x.shape[1],
+            n_features=standardized_train_x.shape[1],
             l1=args.l1,
             l2=args.l2,
             lr=args.lr,
             max_iter=args.max_iter,
         )
-        latitude_model.fit(train_x, latitude_targets)
-        longitude_model.fit(train_x, longitude_targets)
 
-        latitude_predictions = latitude_model.predict(valid_x)
-        longitude_predictions = longitude_model.predict(valid_x)
+        # 训练
+        latitude_model.fit(standardized_train_x, latitude_targets)
+        longitude_model.fit(standardized_train_x, longitude_targets)
+
+        # 预测
+        latitude_predictions = latitude_model.predict(standardized_valid_x)
+        longitude_predictions = longitude_model.predict(standardized_valid_x)
         prediction = np.column_stack((latitude_predictions, longitude_predictions))
-        weights = np.stack((latitude_model.weights, longitude_model.weights))
-        bias = np.array((latitude_model.bias, longitude_model.bias))
+
+        # 逆变换权重
+        latitude_weights_original, latitude_bias_original = reverse_weights_bias(latitude_model, train_x_mean, train_x_std)
+        longitude_weights_original, longitude_bias_original = reverse_weights_bias(longitude_model, train_x_mean, train_x_std)
+
+        # 合并权重
+        weights_original = np.stack((latitude_weights_original, longitude_weights_original))
+        bias_original = np.array((latitude_bias_original, longitude_bias_original))
+
     else:
         model = LogisticRegressionModel(train_x.shape[1])
         model.fit(train_x, train_y)
-        prediction = model.predict(valid_x)
+        prediction = model.predict(standardized_valid_x)
         weights = model.weights
         bias = model.bias
+
 
     if prediction.shape != valid_y.shape:
         raise ValueError(f"Expected predictions with shape {valid_y.shape}")
@@ -123,8 +144,8 @@ def main() -> None:
     # 输出文件的名称被 output 参数指定，文件格式为 .npz
     np.savez(
         output,
-        weights=np.asarray(weights, dtype=np.float64),
-        bias=np.asarray(bias, dtype=np.float64),
+        weights=np.asarray(weights_original, dtype=np.float64),
+        bias=np.asarray(bias_original, dtype=np.float64),
     )
     print(f"Saved {output} (layer {args.layer})")
 
