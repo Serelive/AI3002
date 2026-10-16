@@ -10,7 +10,11 @@ from model import LinearRegressionModel, LogisticRegressionModel
 
 
 # 加载 task 任务的 train/valid 数据集，特征取自 layer 层
-def load_split(task: str, split: str, layer: int) -> tuple[np.ndarray, np.ndarray]:
+def load_split(
+    task: str,
+    split: str,
+    layer: int
+) -> tuple[np.ndarray, np.ndarray]:
 
     # 在 Python 中，Path(__file__) 表示当前脚本文件的路径
     data_dir = Path(__file__).parent / "datasets" / task
@@ -28,6 +32,20 @@ def load_split(task: str, split: str, layer: int) -> tuple[np.ndarray, np.ndarra
 
     return features.astype(np.float64), targets
 
+def fit_standardizers(
+    features: np.ndarray
+) -> tuple[np.ndarray, np.ndarray]:
+    mean = np.mean(features, axis=0)
+    std = np.std(features, axis=0)
+    std = np.where(std == 0, 1, std)
+    return mean, std
+
+def transform_features(
+    features: np.ndarray,
+    mean: np.ndarray,
+    std: np.ndarray
+) -> np.ndarray:
+    return (features - mean) / std
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
