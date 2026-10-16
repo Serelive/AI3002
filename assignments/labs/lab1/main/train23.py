@@ -47,6 +47,13 @@ def transform_features(
 ) -> np.ndarray:
     return (features - mean) / std
 
+def reverse_features(
+    standardized_features: np.ndarray,
+    mean: np.ndarray,
+    std: np.ndarray
+) -> np.ndarray:
+    return standardized_features * std + mean
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("task", choices=("world", "truth"))
