@@ -32,3 +32,34 @@ For the next preprocessing decision, see the [standardization guide](docs/p02/p0
 Standardization review (October 17): [review findings](docs/p02/p02-i05_review_standardization.md) confirm correct world preprocessing and raw-feature export. Two truth-branch regressions need correction: inconsistent feature scales and undefined export variables.
 
 The [Task 2 comparison review](docs/p02/p02-i05_review_comparison.md) identifies four fixes before the grid search: supply parser positionals, preserve the selected model, reject non-finite results before export, and save the results table under `output/p02/`.
+
+## Running the Task 2 comparison
+
+The comparison runner now gives each invocation a new timestamped batch under `output/p02/comparison/`. Each configuration has its own directory containing `config.json`, `result.json`, and a successful run's `world_layer<L>.npz`. `comparison.csv` is updated after every attempt. The batch's `selected/` directory holds the best finite model so far as `world.npz`, its `world-layer.txt`, and `selection.json`, which identifies the source run. A numerical failure is recorded and skipped; an interruption preserves completed results. Restarting creates a new batch rather than resuming the old one.
+
+Run the original 375-configuration grid from the course root:
+
+```bash
+.venv/bin/python assignments/labs/lab1/main/p02_comparison.py
+```
+
+At the user's measured seven seconds per run, the grid takes approximately 44 minutes on one machine, excluding overhead. The original L1/L2/learning-rate lists and 10,000-update budget are preserved. To divide layers between two PCs with the same code, dependencies, and input files:
+
+```bash
+# PC 1
+.venv/bin/python assignments/labs/lab1/main/p02_comparison.py --layers 11 23
+# PC 2
+.venv/bin/python assignments/labs/lab1/main/p02_comparison.py --layers 35
+```
+
+Each PC selects its own batch winner. Compare those winners' MSEs and retain the lower-scoring model together with its layer and settings. Local files are not automatically synchronized. Optional `--l1`, `--l2`, and `--lr` accept lists; `--max_iter` changes the update budget and `--output_dir` sets the batch parent.
+
+The standalone `train23.py` now rejects invalid training settings, stops world training on floating-point overflow, rejects non-finite exports, and refuses to overwrite an existing archive. Choose a new `--output_dir` for a repeat run. The truth branch also retains raw inputs consistently and supplies the correct export variables.
+
+Verification: four focused checks passed for separate outputs, best-model preservation, failed/all-failed runs, interruption handling, export equivalence, and overwrite protection. A two-configuration, 20-update layer-11 smoke run passed on real data using temporary outputs; the full grid has not been run by this change. Reproduce the focused checks with:
+
+```bash
+.venv/bin/python assignments/labs/lab1/main/p02_test_comparison.py
+```
+
+The older terminal log records scores but cannot restore overwritten per-configuration weights. Keep it as historical evidence; use the new batch outputs for selecting the final artifact.
