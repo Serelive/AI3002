@@ -1,6 +1,6 @@
 # Lab 1 roadmap
 
-This roadmap covers **p01 / Task 1** and **p02 / Task 2**. Task 2's main implementation is planned below; its report questions are listed separately for later work. Task 3 will be planned separately. Markers follow [the working agreement](agreement.md).
+This roadmap covers **p01 / Task 1**, **p02 / Task 2**, and **p03 / Task 3**. Phase 2 implementation is sufficient for moving on; further refinement is deferred to the 107 platform. Markers follow [the working agreement](agreement.md).
 
 ## p01 — Models and supporting experiments
 
@@ -23,6 +23,8 @@ Paths above are relative to `lab1`, except `instruction.pdf`, which is in `docs/
 **Completion check:** both models run correctly; checks and experiments are reproducible; questions 1–2 have supporting evidence; question 3 is answered or explicitly deferred. This completes Task 1 preparation, not the full lab submission.
 
 ## p02 — Predict geographic coordinates
+
+Status: implemented sufficiently according to the learner. Promising layers are 11/35, with L1/L2 around 0.3–1.0 and learning rate around 0.0001. Further tuning continues on the 107 platform; retain existing artifacts and report evidence.
 
 Source: `docs/instruction.pdf` §2.2, with export details in Appendix C.1. Detailed main-body guides: [English](p02/p02_guide_main-eng.md) and [中文](p02/p02_guide_main-zh.md). These are plans, not completed experiment results.
 
@@ -50,3 +52,17 @@ The old additional implementation gates are retired, not unfinished prerequisite
 | `p02-i12` | Check Task 2 code, selected weights/layer, and answers 4–7 against the prompt; integrate with the full-lab report and packaging. |
 
 Other-layer extraction is optional. Final Task 2 weights may be library-trained, but the lab still requires the handwritten Task 1 training implementation. No hidden-test scores or grading thresholds are assumed.
+
+## p03 — Classify sentence truth
+
+Follow the [p03 guide and handoff](p03/p03_guide_main.md), based on `instruction.pdf` §2.3. Prioritize a working baseline, model selection, and the required export.
+
+| Increment | Outcome |
+| --- | --- |
+| `p03-i00` | Pass CLI training settings into the truth model and perform a focused logistic-regression check. |
+| `p03-i01` | Train a finite baseline and record training/validation accuracy. |
+| `p03-i02` | Compare supplied layers and regularization; select by validation accuracy. |
+| `p03-i03` | Verify raw-feature inference from float64 weights `(2560,)` and scalar bias `()`; record the layer and reproduction command. |
+| `p03-i04` | Answer report questions 8–9 using observed split differences and selection results. |
+
+New files use `main/p03_*.py` and `docs/p03/`. Retain Phase 2 behavior when editing shared model or training code.
