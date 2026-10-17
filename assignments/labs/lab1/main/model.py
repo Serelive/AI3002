@@ -20,20 +20,66 @@ class LinearRegressionModel:
         self.lr = lr
         self.max_iter = max_iter
 
-
     def fit(self, features: np.ndarray, targets: np.ndarray) -> None:
         # 训练模型；features 为 (N, D)，targets 为 (N,)。
         weights = np.zeros(self.n_features, dtype=np.float64)
         bias = np.float64(0.0)
+
+        best_loss = self._loss(weights, bias, features, targets)
+        best_weights = weights.copy()
+        best_bias = bias
+
+        patience = 5
+        counter = 0
+        tol = 1e-6
+        check_every = 20
+
         for i in range(self.max_iter):
-            gradient = self._gradient(weights, bias, features, targets)
-            weights = weights - self.lr * gradient[0]
-            bias = bias - self.lr * gradient[1]
-        self.weights, self.bias = weights, bias
+            grad_w, grad_b = self._gradient(weights, bias, features, targets)
+            weights = weights - self.lr * grad_w
+            bias = bias - self.lr * grad_b
+
+            if (i+1) % check_every == 0:
+                loss = self._loss(weights, bias, features, targets)
+
+                if not np.isfinite(loss):
+                    raise FloatingPointError("Loss is not finite")
+
+                threshold = tol * max(1.0, abs(best_loss))
+
+                if loss < best_loss - threshold:
+                    best_loss = loss
+                    best_weights = weights.copy()
+                    best_bias = bias.copy()
+                    counter = 0
+                else:
+                    counter += 1
+
+                if counter >= patience:
+                    break
+
+        self.weights, self.bias = best_weights, best_bias
 
     def predict(self, features: np.ndarray) -> np.ndarray:
         # 提示：使用矩阵乘法和偏置，返回形状为 (N,) 的预测值。
         return np.dot(features, self.weights) + self.bias
+
+    def _loss(
+        self,
+        weights: np.ndarray,
+        bias: np.ndarray,
+        features: np.ndarray,
+        targets: np.ndarray,
+    ) -> float:
+        residual = features @ weights + bias - targets
+        mce = np.square(residual)
+        loss = np.mean(
+            mce
+            + self.l1 * np.sum(np.abs(weights))
+            + self.l2 * np.sum(np.square(weights))
+        )
+        return loss
+
 
     def _gradient(
         self,
@@ -72,11 +118,41 @@ class LogisticRegressionModel:
         # 训练模型；features 为 (N, 2560)，targets 为 (N,) 的 0/1 标签。
         weights = np.zeros(self.n_features, dtype=np.float64)
         bias = np.float64(0.0)
+
+        best_loss = self._loss(weights, bias, features, targets)
+        best_weights = weights.copy()
+        best_bias = bias
+
+        patience = 5
+        counter = 0
+        tol = 1e-6
+        check_every = 20
+
         for i in range(self.max_iter):
-            gradient = self._gradient(weights, bias, features, targets)
-            weights = weights - self.lr * gradient[0]
-            bias = bias - self.lr * gradient[1]
-        self.weights, self.bias = weights, bias
+            grad_w, grad_b = self._gradient(weights, bias, features, targets)
+            weights = weights - self.lr * grad_w
+            bias = bias - self.lr * grad_b
+
+            if (i+1) % check_every == 0:
+                loss = self._loss(weights, bias, features, targets)
+
+                if not np.isfinite(loss):
+                    raise FloatingPointError("Loss is not finite")
+
+                threshold = tol * max(1.0, abs(best_loss))
+
+                if loss < best_loss - threshold:
+                    best_loss = loss
+                    best_weights = weights.copy()
+                    best_bias = bias.copy()
+                    counter = 0
+                else:
+                    counter += 1
+
+                if counter >= patience:
+                    break
+
+        self.weights, self.bias = best_weights, best_bias
 
     def predict(self, features: np.ndarray) -> np.ndarray:
         # 提示：返回形状为 (N,) 的真类概率，不要在此处做 0.5 阈值化。"""
@@ -97,3 +173,20 @@ class LogisticRegressionModel:
         gradient_w = 1 / features.shape[0] * features.T @ residual + self.l1 * np.sign(weights) + 2 * self.l2 * weights
         gradient_b = np.mean(residual)
         return gradient_w, gradient_b
+
+    def _loss(
+        self,
+        weights: np.ndarray,
+        bias: float,
+        features: np.ndarray,
+        targets: np.ndarray,
+    ) -> float:
+        scores = features @ weights + bias
+        bce = np.mean(
+            np.logaddexp(0.0, scores) - targets * scores
+        )
+        return float(
+            bce
+            + self.l1 * np.sum(np.abs(weights))
+            + self.l2 * np.sum(weights ** 2)
+        )
