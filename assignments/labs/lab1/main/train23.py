@@ -77,7 +77,7 @@ def main(args) -> float:
         raise ValueError("Require finite lr > 0, l1/l2 >= 0, and max_iter > 0")
 
     if args.output_dir is None:
-        args.output_dir = Path(__file__).parent / "output" / args.task
+        args.output_dir = Path(__file__).parent.parent / "output" / args.task
 
     output = args.output_dir / f"{args.task}_layer{args.layer}.npz"
     if output.exists():
@@ -120,6 +120,10 @@ def main(args) -> float:
             latitude_model.fit(standardized_train_x, latitude_targets)
             longitude_model.fit(standardized_train_x, longitude_targets)
 
+        for name, fitted in (("Latitude", latitude_model), ("Longitude", longitude_model)):
+            print(f"{name}: {fitted.n_iter_} updates; {fitted.stop_reason_}; "
+                  f"best checkpoint at update {fitted.best_iter_}")
+
         # 预测
         latitude_predictions = latitude_model.predict(standardized_valid_x)
         longitude_predictions = longitude_model.predict(standardized_valid_x)
@@ -144,10 +148,12 @@ def main(args) -> float:
         )
 
         # 训练模型
-        model.fit(train_x, train_y)
+        model.fit(standardized_train_x, train_y)
+        print(f"Truth: {model.n_iter_} updates; {model.stop_reason_}; "
+              f"best checkpoint at update {model.best_iter_}")
 
         # 测试
-        prediction = model.predict(valid_x)
+        prediction = model.predict(standardized_valid_x)
 
         # 逆变换权重
         weights_original, bias_original = reverse_weights_bias(model, train_x_mean, train_x_std)

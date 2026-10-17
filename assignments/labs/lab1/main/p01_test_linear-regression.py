@@ -43,10 +43,11 @@ class LinearRegressionTests(unittest.TestCase):
         model = LinearRegressionModel(2)
         for _ in range(2):
             model.fit(x, y)
-            np.testing.assert_allclose(model.weights, [2., -1.], atol=1e-8)
-            np.testing.assert_allclose(model.bias, 1., atol=1e-8)
+            # Training-loss stopping uses a 1e-6 improvement tolerance.
+            np.testing.assert_allclose(model.weights, [2., -1.], atol=1e-3)
+            np.testing.assert_allclose(model.bias, 1., atol=1e-3)
             self.assertEqual(model.predict(x).shape, (8,))
-            self.assertLess(np.mean((model.predict(x) - y) ** 2), 1e-16)
+            self.assertLess(np.mean((model.predict(x) - y) ** 2), 1e-6)
 
 
 if __name__ == "__main__":

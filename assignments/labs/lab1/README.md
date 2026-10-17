@@ -67,3 +67,43 @@ The older terminal log records scores but cannot restore overwritten per-configu
 ## Starting Task 3
 
 Use the [p03 guide and conversation handoff](docs/p03/p03_guide_main.md). It covers the handout requirements, current code issue, a short implementation plan, required export format, report evidence, and transfer to the 107 platform. Local truth inputs were checked: 5,088 balanced training rows and 300 balanced validation rows, with 2,560 features at layers 11/23/35. No Task 3 training was run in preparing this handoff.
+
+### Task 3 iteration fixes (`p03-i01`)
+
+Implemented the [iteration review](docs/p03/p03-i01_review_iteration.md). Both
+models now check the final update, retain the lowest-loss evaluated checkpoint
+independently of the patience threshold, and scale gradient vectors after the
+matrix–vector product. Stopping still monitors regularized training loss every
+20 updates, with patience 5 and tolerance `1e-6`; small improvements accumulate
+against the last significant-improvement reference. The models expose `n_iter_`,
+`best_iter_`, and `stop_reason_`, and `train23.py` prints these after training.
+
+The truth branch now trains and validates on features standardized using training
+statistics, then exports raw-feature weights and bias. Default outputs are under
+`output/<task>/`, with existing-file protection. Existing artifacts under
+`main/output/` have not been moved or selected for submission.
+
+Reproduce the focused checks from the repository root:
+
+```bash
+.venv/bin/python assignments/labs/lab1/main/p03_test_iteration.py
+.venv/bin/python assignments/labs/lab1/main/p01_test_linear-regression.py
+.venv/bin/python assignments/labs/lab1/main/p02_test_comparison.py
+```
+
+All 12 tests passed. Coverage includes final-update boundaries, patience with
+small improvements, non-finite initial loss, default paths, prior regression and
+comparison behavior, and a real layer-11 truth run. That deterministic 21-update
+smoke run used `lr=0.01`, `l1=l2=0.01` and obtained validation accuracy 0.6800;
+reloaded raw-feature probabilities matched the in-memory predictions, and export
+shapes/dtypes passed. Its temporary artifact was removed automatically. This is
+execution validation, not a tuned model selection. The older linear toy-fit test
+now uses tolerances appropriate to training-loss early stopping.
+
+For a separate pilot artifact, run:
+
+```bash
+.venv/bin/python assignments/labs/lab1/main/train23.py truth 11 \
+  --lr 0.01 --l1 0.01 --l2 0.01 --max_iter 100 \
+  --output_dir assignments/labs/lab1/output/p03/i01-pilot
+```

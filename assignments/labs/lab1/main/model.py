@@ -26,8 +26,14 @@ class LinearRegressionModel:
         bias = np.float64(0.0)
 
         best_loss = self._loss(weights, bias, features, targets)
+        if not np.isfinite(best_loss):
+            raise FloatingPointError("Initial loss is not finite")
+        reference_loss = best_loss
         best_weights = weights.copy()
         best_bias = bias
+        self.n_iter_ = 0
+        self.best_iter_ = 0
+        self.stop_reason_ = "max_iter reached"
 
         patience = 5
         counter = 0
@@ -39,23 +45,30 @@ class LinearRegressionModel:
             weights = weights - self.lr * grad_w
             bias = bias - self.lr * grad_b
 
-            if (i+1) % check_every == 0:
+            self.n_iter_ = i + 1
+            if (i + 1) % check_every == 0 or i + 1 == self.max_iter:
                 loss = self._loss(weights, bias, features, targets)
 
                 if not np.isfinite(loss):
                     raise FloatingPointError("Loss is not finite")
 
-                threshold = tol * max(1.0, abs(best_loss))
-
-                if loss < best_loss - threshold:
+                # Keep the best checkpoint even for improvements below tolerance.
+                if loss < best_loss:
                     best_loss = loss
                     best_weights = weights.copy()
-                    best_bias = bias.copy()
+                    best_bias = bias
+                    self.best_iter_ = i + 1
+
+                # Accumulate small improvements against a separate reference.
+                threshold = tol * max(1.0, abs(reference_loss))
+                if loss < reference_loss - threshold:
+                    reference_loss = loss
                     counter = 0
                 else:
                     counter += 1
 
                 if counter >= patience:
+                    self.stop_reason_ = "patience exhausted"
                     break
 
         self.weights, self.bias = best_weights, best_bias
@@ -89,7 +102,7 @@ class LinearRegressionModel:
         targets: np.ndarray,
     ) -> tuple:
         residual = features @ weights + bias - targets
-        gradient_w = 2 / features.shape[0] * features.T @ residual + self.l1 * np.sign(weights) + 2 * self.l2 * weights
+        gradient_w = 2 * (features.T @ residual) / features.shape[0] + self.l1 * np.sign(weights) + 2 * self.l2 * weights
         gradient_b = 2 * np.mean(residual)
         return gradient_w, gradient_b
 
@@ -120,8 +133,14 @@ class LogisticRegressionModel:
         bias = np.float64(0.0)
 
         best_loss = self._loss(weights, bias, features, targets)
+        if not np.isfinite(best_loss):
+            raise FloatingPointError("Initial loss is not finite")
+        reference_loss = best_loss
         best_weights = weights.copy()
         best_bias = bias
+        self.n_iter_ = 0
+        self.best_iter_ = 0
+        self.stop_reason_ = "max_iter reached"
 
         patience = 5
         counter = 0
@@ -133,23 +152,30 @@ class LogisticRegressionModel:
             weights = weights - self.lr * grad_w
             bias = bias - self.lr * grad_b
 
-            if (i+1) % check_every == 0:
+            self.n_iter_ = i + 1
+            if (i + 1) % check_every == 0 or i + 1 == self.max_iter:
                 loss = self._loss(weights, bias, features, targets)
 
                 if not np.isfinite(loss):
                     raise FloatingPointError("Loss is not finite")
 
-                threshold = tol * max(1.0, abs(best_loss))
-
-                if loss < best_loss - threshold:
+                # Keep the best checkpoint even for improvements below tolerance.
+                if loss < best_loss:
                     best_loss = loss
                     best_weights = weights.copy()
-                    best_bias = bias.copy()
+                    best_bias = bias
+                    self.best_iter_ = i + 1
+
+                # Accumulate small improvements against a separate reference.
+                threshold = tol * max(1.0, abs(reference_loss))
+                if loss < reference_loss - threshold:
+                    reference_loss = loss
                     counter = 0
                 else:
                     counter += 1
 
                 if counter >= patience:
+                    self.stop_reason_ = "patience exhausted"
                     break
 
         self.weights, self.bias = best_weights, best_bias
@@ -170,7 +196,7 @@ class LogisticRegressionModel:
         scores = features @ weights + bias
         probabilities = np.exp(-np.logaddexp(0.0, -scores))
         residual = probabilities - targets
-        gradient_w = 1 / features.shape[0] * features.T @ residual + self.l1 * np.sign(weights) + 2 * self.l2 * weights
+        gradient_w = (features.T @ residual) / features.shape[0] + self.l1 * np.sign(weights) + 2 * self.l2 * weights
         gradient_b = np.mean(residual)
         return gradient_w, gradient_b
 
