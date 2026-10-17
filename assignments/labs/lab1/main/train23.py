@@ -16,7 +16,7 @@ def load_split(
     layer: int
 ) -> tuple[np.ndarray, np.ndarray]:
 
-    # 在 Python 中，Path(__file__) 表示当前脚本文件的路径
+    # 在 Python 中，Path(___) 表示当前脚本文件的路径
     data_dir = Path(__file__).parent / "datasets" / task
 
     features = np.load(data_dir / f"{split}.layer{layer}.npy", allow_pickle=False)
@@ -64,7 +64,6 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output_dir",
                         type=Path,
                         help="Path to the output folder",
-                        default=Path(__file__).parent.parent / "output" / "world",
                         )
     parser.add_argument("--lr", type = float, default=0.01)
     parser.add_argument("--l1", type = float, default = 0.01)
@@ -76,6 +75,10 @@ def main(args) -> float:
     if (not np.isfinite([args.lr, args.l1, args.l2]).all()
             or args.lr <= 0 or args.l1 < 0 or args.l2 < 0 or args.max_iter <= 0):
         raise ValueError("Require finite lr > 0, l1/l2 >= 0, and max_iter > 0")
+
+    if args.output_dir is None:
+        args.output_dir = Path(__file__).parent / "output" / args.task
+
     output = args.output_dir / f"{args.task}_layer{args.layer}.npz"
     if output.exists():
         raise FileExistsError(f"Refusing to overwrite {output}; choose a new output_dir")
