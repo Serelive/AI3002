@@ -37,13 +37,13 @@ The [Task 2 comparison review](docs/p02/p02-i05_review_comparison.md) identifies
 
 The comparison runner now gives each invocation a new timestamped batch under `output/p02/comparison/`. Each configuration has its own directory containing `config.json`, `result.json`, and a successful run's `world_layer<L>.npz`. `comparison.csv` is updated after every attempt. The batch's `selected/` directory holds the best finite model so far as `world.npz`, its `world-layer.txt`, and `selection.json`, which identifies the source run. A numerical failure is recorded and skipped; an interruption preserves completed results. Restarting creates a new batch rather than resuming the old one.
 
-Run the original 375-configuration grid from the course root:
+Run the current 27-configuration follow-up grid from the course root:
 
 ```bash
 .venv/bin/python assignments/labs/lab1/main/p02_comparison.py
 ```
 
-At the user's measured seven seconds per run, the grid takes approximately 44 minutes on one machine, excluding overhead. The original L1/L2/learning-rate lists and 10,000-update budget are preserved. To divide layers between two PCs with the same code, dependencies, and input files:
+The current defaults use three layers, L1/L2 values `[0.2, 0.3, 1.0]`, learning rate `0.0001`, and 10,000 updates. At seven seconds per run, 27 runs take approximately three minutes, excluding overhead; actual runtimes vary. Keep the previous selected model as a baseline. See the [comparison notes](docs/p02/p02-i05_log_comparison.md) for the initial result. To divide layers between two PCs with the same code, dependencies, and input files:
 
 ```bash
 # PC 1

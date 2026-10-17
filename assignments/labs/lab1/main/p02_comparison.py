@@ -14,9 +14,9 @@ import pandas as pd
 import train23
 
 LAYERS = (11, 23, 35)
-L1 = [1e-5, 1e-4, 1e-3, 1e-2, 1e-1]
-L2 = [1e-5, 1e-4, 1e-3, 1e-2, 1e-1]
-LR = [1e-7, 1e-6, 1e-5, 1e-4, 1e-3]
+L1 = [0.2, 0.3, 1]
+L2 = [0.2, 0.3, 1]
+LR = [1e-4]
 MAX_ITER = 10000
 
 
@@ -33,6 +33,8 @@ def get_parser():
 
 
 def run_comparison(options):
+
+    # 检查输入是否合法
     for name in ("l1", "l2", "lr"):
         values = np.asarray(getattr(options, name))
         if not np.isfinite(values).all() or (values < 0).any() or (name == "lr" and (values == 0).any()):
@@ -40,10 +42,12 @@ def run_comparison(options):
     if options.max_iter <= 0:
         raise ValueError("max_iter must be positive")
 
-    # A new batch keeps reruns and separate PCs' results independent.
+    # 创建单批次的运行目录
     batch = options.output_dir / datetime.now().strftime("%Y%m%d-%H%M%S-%f")
     batch.mkdir(parents=True, exist_ok=False)
     print(f"Results: {batch.resolve()}", flush=True)
+
+    ## 按照批次循环
     records = []
     best = None
     parser = train23.get_parser()
@@ -58,7 +62,7 @@ def run_comparison(options):
         record = dict(layer=layer, l1=l1, l2=l2, lr=lr,
                       max_iter=options.max_iter, run_dir=run_name,
                       status="running", mse=None, error="")
-        # Retain settings even if this run is interrupted.
+        # 保存当前设置，便于中断后查阅；重新运行会创建新批次
         (run_dir / "config.json").write_text(json.dumps(record, indent=2) + "\n")
         started = perf_counter()
         try:
