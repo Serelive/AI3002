@@ -48,7 +48,7 @@ def transform_features(
     return (features - mean) / std
 
 def reverse_weights_bias(
-    model: LinearRegressionModel,
+    model: LinearRegressionModel | LogisticRegressionModel,
     mean: np.ndarray,
     std: np.ndarray
 ) -> tuple[np.ndarray, np.ndarray]:
@@ -96,7 +96,7 @@ def main(args) -> float:
         latitude_targets = train_y[:, 0]
         longitude_targets = train_y[:, 1]
 
-        # 训练模型
+        # 初始化模型
         latitude_model = LinearRegressionModel(
             n_features=standardized_train_x.shape[1],
             l1=args.l1,
@@ -131,12 +131,23 @@ def main(args) -> float:
         bias_original = np.array((latitude_bias_original, longitude_bias_original))
 
     else:
-        model = LogisticRegressionModel(train_x.shape[1])
-        model.fit(train_x, train_y)
-        prediction = model.predict(valid_x)
-        weights_original = model.weights
-        bias_original = model.bias
+        # 初始化模型
+        model = LogisticRegressionModel(
+            n_features=train_x.shape[1],
+            l1=args.l1,
+            l2=args.l2,
+            lr=args.lr,
+            max_iter=args.max_iter,
+        )
 
+        # 训练模型
+        model.fit(train_x, train_y)
+
+        # 测试
+        prediction = model.predict(valid_x)
+
+        # 逆变换权重
+        weights_original, bias_original = reverse_weights_bias(model, train_x_mean, train_x_std)
 
     if prediction.shape != valid_y.shape:
         raise ValueError(f"Expected predictions with shape {valid_y.shape}")
