@@ -18,8 +18,8 @@ mode=$2
 shift 2
 [[ "$repo_root" = /* ]] || { echo "Repository path must be absolute" >&2; exit 2; }
 cd "$repo_root"
-python="$repo_root/.venv/bin/python"
-[[ -x "$python" ]] || { echo "Create the root .venv first; see docs/HPC.md" >&2; exit 2; }
+python=${AI3002_PYTHON:-"$repo_root/.venv/bin/python"}
+[[ -x "$python" ]] || { echo "Create .venv or export AI3002_PYTHON to your Conda Python; see docs/HPC.md" >&2; exit 2; }
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
 export OPENBLAS_NUM_THREADS=$OMP_NUM_THREADS
@@ -52,6 +52,7 @@ esac
     printf 'Job: %s\nHost: %s\nCPUs: %s\n' "$SLURM_JOB_ID" "$(hostname)" "$OMP_NUM_THREADS"
     git rev-parse HEAD
     git status --short
+    printf 'Python executable: %s\n' "$python"
     "$python" --version
     "$python" -c 'from importlib.metadata import version; print({p: version(p) for p in ("numpy", "pandas", "matplotlib", "scikit-learn")})'
     if [[ "$mode" != check ]]; then printf 'Command: '; printf '%q ' "${command[@]}"; printf '\n'; fi

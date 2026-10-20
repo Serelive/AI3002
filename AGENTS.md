@@ -68,7 +68,7 @@ Put genuinely shared code in src/course_utils/ and configure its importability t
 
 ## Slurm HPC workflow
 
-On the 107 platform, use login nodes for editing, Git, file transfers, environment setup, and job submission. Run training, numerical tests, and interactive computations on allocated compute nodes. Follow `docs/HPC.md` and use `scripts/slurm/lab1.sbatch` for Lab 1 jobs. Recreate the root `.venv` with `uv sync --locked` on shared storage; keep data transfers separate from Git. Obtain partition, account, and QoS settings from the user or current platform configuration. Match numerical-library threads to allocated CPUs, retain job logs and environment records, and keep a checkout stable while its jobs are queued or running.
+On the 107 platform, use login nodes for editing, Git, file transfers, environment setup, and job submission. Run training, numerical tests, and interactive computations on allocated compute nodes. Follow `docs/HPC.md` and use `scripts/slurm/lab1.sbatch` for Lab 1 jobs. Recreate the root `.venv` with `uv sync --locked` on shared storage, or use the user-managed course Conda environment `ai26` with locked dependencies and an explicit `AI3002_PYTHON` as described in the handoff. Keep data transfers separate from Git. Obtain partition, account, and QoS settings from the user or current platform configuration. Match numerical-library threads to allocated CPUs, retain job logs and environment records, and keep a checkout stable while its jobs are queued or running.
 
 ## Course-specific priorities
 

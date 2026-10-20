@@ -27,6 +27,7 @@ class SlurmLauncherTests(unittest.TestCase):
                         CAPTURE=str(self.root / "calls"),
                         SLURM_JOB_ID="12345", SLURM_CPUS_PER_TASK="2")
         self.env.pop("SLURM_ARRAY_TASK_ID", None)
+        self.env.pop("AI3002_PYTHON", None)
 
     def run_job(self, *args):
         return subprocess.run(["bash", str(LAUNCHER), str(self.root), *args],
@@ -63,6 +64,16 @@ class SlurmLauncherTests(unittest.TestCase):
         self.env["MOCK_EXIT"] = "7"
         self.assertEqual(self.run_job("check").returncode, 7)
         self.assertEqual((self.root / "calls").read_text().count("threads=2"), 1)
+
+    def test_explicit_conda_interpreter(self):
+        interpreter = self.root / "conda ai26/bin/python"
+        interpreter.parent.mkdir(parents=True)
+        interpreter.write_text((self.bin / "python").read_text())
+        interpreter.chmod(0o755)
+        self.env["AI3002_PYTHON"] = str(interpreter)
+        result = self.run_job("truth", "11")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(str(interpreter), (self.root / "calls").read_text().splitlines())
 
 
 if __name__ == "__main__":

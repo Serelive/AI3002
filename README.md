@@ -11,7 +11,7 @@ uv sync --locked
 .venv/bin/python -c "import course_utils, numpy, pandas, sklearn, matplotlib"
 ```
 
-Python 3.11 or later is required. Local checks use Python 3.14.4. Recreate `.venv` on each machine. See [PyCharm setup](docs/PYCHARM.md) for local development and [Slurm setup and jobs](docs/HPC.md) for login/compute-node use.
+Python 3.11 or later is required. Local checks use Python 3.14.4. Recreate `.venv` on each machine, or use the documented `ai26` Conda option on the cluster. See [PyCharm setup](docs/PYCHARM.md) for local development and [Slurm setup and jobs](docs/HPC.md) for login/compute-node use.
 
 ## Workspace
 
