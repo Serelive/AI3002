@@ -23,7 +23,7 @@ The current training CLI can be inspected from the course repository root:
 
 For training, pass the task/layer and explicit `--output_dir`, `--lr`, `--l1`, `--l2`, and `--max_iter` settings. Record the actual selected command and score after the experiment; no training settings are claimed as validated here.
 
-Task 2 Step 2 (`p02-i01`) passed on October 15. Reproduce the six-pair input validation from the course root with `.venv/bin/python assignments/labs/lab1/main/p02_check_world.py`. Evidence: `output/p02/input-check.txt`. This validates shapes, types, finite values, coordinate bounds, and target order/equality; it does not independently prove the semantic alignment of supplied feature rows.
+Task 2 Step 2 (`p02-i01`) passed on October 15. Reproduce the six-pair input validation from the course root with `.venv/bin/python assignments/labs/lab1/scr/p02_check_world.py`. Evidence: `output/p02/input-check.txt`. This validates shapes, types, finite values, coordinate bounds, and target order/equality; it does not independently prove the semantic alignment of supplied feature rows.
 
 Task 2 numerical diagnosis (October 16): [NaN review](../../../archive/lab1/reviews/p02/p02-i03_review_nan.md) identifies an excessive layer-11 learning rate and records a finite 10,000-update rerun at a smaller rate. This is historical diagnosis; subsequent Task 2 work added standardization, stable runs, and separate experiment outputs.
 
@@ -80,7 +80,7 @@ against the last significant-improvement reference. The models expose `n_iter_`,
 
 The truth branch now trains and validates on features standardized using training
 statistics, then exports raw-feature weights and bias. Default outputs are under
-`output/<task>/`, with existing-file protection. Existing artifacts under
+`output/p02/` for world and `output/p03/` for truth, with existing-file protection. Existing artifacts under
 `scr` have not been moved or selected for submission.
 
 Reproduce the focused checks from the repository root:
@@ -111,3 +111,9 @@ For a separate pilot artifact, run:
 ## HPC continuation
 
 Follow the [107 Slurm handoff](../../../docs/HPC.md) for environment setup, dataset transfer, a compute-node check job, and training commands. `scripts/slurm/lab1.sbatch` (from the repository root) supports `check`, `world`, `truth`, and `comparison`; each job gets its own output directory and environment record. Resolved reviews are retained in [the archive](../../../archive/README.md). Existing `scr` artifacts remain local and ignored.
+
+## Output organization
+
+Use `output/p01/`, `output/p02/`, and `output/p03/` for each phase's generated files. `train23.py` defaults to `p02` for world and `p03` for truth; comparison batches remain under `p02/comparison/`. Optional extraction writes to the matching phase's `features/` directory. Slurm training jobs use the same phase hierarchy; cross-phase check jobs use `output/shared/slurm/`.
+
+See the [output audit and migration guidance](../../../docs/LAB1_OUTPUT_AUDIT.md) and [archive inventory](../../../docs/LAB1_OUTPUT_INVENTORY.csv) for existing files. Legacy outputs have been preserved in place. Training metrics have not been recomputed for this inventory.

@@ -15,11 +15,11 @@ Keep the existing scripts and evidence. No additional input-checking infrastruct
 
 - [ ] Use one supplied layer, starting with 11. Fit latitude and longitude from its **training** features, and predict both coordinates on its **validation** features.
 
-**Use what exists:** `main/train23.py` already loads the data, fits two `LinearRegressionModel` instances, prints validation MSE, and saves weights. Its options are `--output_dir`, `--lr`, `--l1`, `--l2`, and `--max_iter`. Start with `l1=0`; choose an explicit L2 value rather than accidentally relying on the current defaults. Reuse `main/p02_scaffold.ipynb` for exploration if convenient.
+**Use what exists:** `scr/train23.py` already loads the data, fits two `LinearRegressionModel` instances, prints validation MSE, and saves weights. Its options are `--output_dir`, `--lr`, `--l1`, `--l2`, and `--max_iter`. Start with `l1=0`; choose an explicit L2 value rather than accidentally relying on the current defaults. Reuse `scr/p02_scaffold.ipynb` for exploration if convenient.
 
 **Done when:** one run produces finite `(130, 2)` validation predictions, a finite validation MSE, and a saved `.npz`. Column 0 is latitude; column 1 is longitude. No separate toy-test script, logging system, or CLI-hardening task is required first.
 
-If training produces NaN/infinity or clearly diverges, reduce the learning rate and rerun. If optimization remains a time sink, use a library linear regressor, such as Ridge, for the final Task 2 weights: **§2.2 explicitly permits this.** Keep the handwritten Task 1 implementation, which is still required by §2.1. If a new runner is needed, name it `main/p02_train_world.py` and keep it small. Use raw features initially to avoid adding preprocessing/export work.
+If training produces NaN/infinity or clearly diverges, reduce the learning rate and rerun. If optimization remains a time sink, use a library linear regressor, such as Ridge, for the final Task 2 weights: **§2.2 explicitly permits this.** Keep the handwritten Task 1 implementation, which is still required by §2.1. If a new runner is needed, name it `scr/p02_train_world.py` and keep it small. Use raw features initially to avoid adding preprocessing/export work.
 
 ## 2. Next priority: make a small validation comparison (`p02-i05`)
 

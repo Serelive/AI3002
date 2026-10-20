@@ -77,7 +77,7 @@ def main(args) -> float:
         raise ValueError("Require finite lr > 0, l1/l2 >= 0, and max_iter > 0")
 
     if args.output_dir is None:
-        args.output_dir = Path(__file__).parent.parent / "output" / args.task
+        args.output_dir = Path(__file__).resolve().parent.parent / "output" / {"world": "p02", "truth": "p03"}[args.task]
 
     output = args.output_dir / f"{args.task}_layer{args.layer}.npz"
     if output.exists():

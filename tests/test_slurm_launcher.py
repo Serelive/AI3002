@@ -38,18 +38,21 @@ class SlurmLauncherTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         calls = (self.root / "calls").read_text().splitlines()
         self.assertIn(str(self.bin / "python"), calls)
-        self.assertIn("assignments/labs/lab1/output/slurm/job-12345/truth", calls)
+        self.assertIn("assignments/labs/lab1/output/p03/slurm/job-12345/truth", calls)
+        self.assertIn("assignments/labs/lab1/scr/train23.py", calls)
         self.assertIn("threads=2", calls)
         self.assertIn("100", calls)
-        self.assertTrue((self.root / "assignments/labs/lab1/output/slurm/job-12345/environment.txt").exists())
+        self.assertTrue((self.root / "assignments/labs/lab1/output/p03/slurm/job-12345/environment.txt").exists())
 
     def test_check_and_comparison(self):
         self.assertEqual(self.run_job("check").returncode, 0)
         calls = (self.root / "calls").read_text()
         self.assertEqual(calls.count("threads=2"), 3)
+        self.assertTrue((self.root / "assignments/labs/lab1/output/shared/slurm/job-12345/environment.txt").exists())
         result = self.run_job("comparison", "--layers", "11", "35")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("p02_comparison.py", (self.root / "calls").read_text())
+        self.assertIn("assignments/labs/lab1/scr/p02_comparison.py", (self.root / "calls").read_text())
+        self.assertIn("output/p02/slurm/job-12345/comparison", (self.root / "calls").read_text())
 
     def test_reject_login_node_and_invalid_mode(self):
         self.assertEqual(self.run_job("unknown").returncode, 2)

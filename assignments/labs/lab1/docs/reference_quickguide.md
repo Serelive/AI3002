@@ -4,11 +4,11 @@ Here, `lab1` means `assignments/labs/lab1`; paths below are relative to it. The 
 
 ## 1. Reading order
 
-1. **`main/README.md`** — a two-minute overview. Its October 31 end date conflicts with the [current course repository](https://github.com/ChangshuoShen/USTC-AI3002-26fall/), which lists **October 21, 2026** as the Lab 1 deadline (checked October 9). Plan for October 21 and check class notices for confirmation.
-2. **`docs/LAB1.pdf`** — read §3 first for deliverables and grading, then §§1–2 for the tasks and nine report questions. Read Appendix C.1 for NumPy file formats; consult Appendix A only as needed. `main/README.pdf` is an identical copy, so skip rereading it.
+1. **`scr/README.md`** — a two-minute overview. Its October 31 end date conflicts with the [current course repository](https://github.com/ChangshuoShen/USTC-AI3002-26fall/), which lists **October 21, 2026** as the Lab 1 deadline (checked October 9). Plan for October 21 and check class notices for confirmation.
+2. **`docs/LAB1.pdf`** — read §3 first for deliverables and grading, then §§1–2 for the tasks and nine report questions. Read Appendix C.1 for NumPy file formats; consult Appendix A only as needed. `scr/README.pdf` is an identical copy, so skip rereading it.
 3. **`docs/HW1-26.pdf`** — supporting theory, a separate homework rather than the lab specification. Prioritize Q2 (separate coordinate regressions), Q3 (gradients and regularization), and Q4 (logistic regression); Q1 provides generalization background. You need not finish this homework before starting the lab.
-4. **`main/model.py` → `main/train1.py` → `main/train23.py`** — understand the model interface, the small sanity-check example, then real-data loading, validation, and weight export.
-5. **`main/datasets/` and `main/report.template.tex`** — inspect CSV columns and examples, then skim the report outline before experimenting so you collect evidence for all nine questions.
+4. **`scr/model.py` → `scr/train1.py` → `scr/train23.py`** — understand the model interface, the small sanity-check example, then real-data loading, validation, and weight export.
+5. **`scr/datasets/` and `scr/report.template.tex`** — inspect CSV columns and examples, then skim the report outline before experimenting so you collect evidence for all nine questions.
 
 Leave `extract_intrep.py` and Appendix B until you choose to extract additional features. Appendices D–E are optional background.
 
@@ -18,7 +18,7 @@ Leave `extract_intrep.py` and Appendix B until you choose to extract additional 
 lab1/
 ├── backups/                 Original HW1-26.pdf, LAB1.pdf, LAB1.zip; preserve
 ├── docs/                    Working handouts and this guide
-└── main/
+└── scr/
     ├── README.md / README.pdf  Overview / full lab instructions
     ├── model.py             Core implementation: fit() and predict() stubs
     ├── train1.py            Small synthetic-data sanity check
@@ -30,7 +30,7 @@ lab1/
     └── extract_intrep.py    Optional Qwen feature extraction; requires CUDA
 ```
 
-Each dataset has `train.csv`, `valid.csv`, and matching `.npy` features for layers **11, 23, 35**. Features have 2,560 columns and align with CSV rows. Preserve these inputs. Create `lab1/output/` for experiment artifacts and `lab1/submission/` for selected final deliverables when needed.
+Each dataset has `train.csv`, `valid.csv`, and matching `.npy` features for layers **11, 23, 35**. Features have 2,560 columns and align with CSV rows. Preserve these inputs. Use `lab1/output/pNN/` for phase-specific experiment artifacts and `lab1/submission/` for selected final deliverables when needed.
 
 ## 3. Work order and time budget
 

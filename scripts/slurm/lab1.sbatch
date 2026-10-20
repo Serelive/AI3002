@@ -28,7 +28,13 @@ export NUMEXPR_NUM_THREADS=$OMP_NUM_THREADS
 export MPLBACKEND=Agg
 export PYTHONUNBUFFERED=1
 lab=assignments/labs/lab1
-run_dir="$lab/output/slurm/job-${SLURM_JOB_ID}${SLURM_ARRAY_TASK_ID:+-${SLURM_ARRAY_TASK_ID}}"
+case "$mode" in
+    world|comparison) phase=p02 ;;
+    truth) phase=p03 ;;
+    check) phase=shared ;;
+    *) echo "Unknown mode: $mode" >&2; exit 2 ;;
+esac
+run_dir="$lab/output/$phase/slurm/job-${SLURM_JOB_ID}${SLURM_ARRAY_TASK_ID:+-${SLURM_ARRAY_TASK_ID}}"
 mkdir -p "$run_dir"
 
 case "$mode" in
@@ -39,10 +45,10 @@ case "$mode" in
         [[ $# -ge 1 ]] || { echo "$mode requires a layer number" >&2; exit 2; }
         layer=$1
         shift
-        command=("$python" "$lab/main/train23.py" "$mode" "$layer" --output_dir "$run_dir/$mode" "$@")
+        command=("$python" "$lab/scr/train23.py" "$mode" "$layer" --output_dir "$run_dir/$mode" "$@")
         ;;
     comparison)
-        command=("$python" "$lab/main/p02_comparison.py" --output_dir "$run_dir/comparison" "$@")
+        command=("$python" "$lab/scr/p02_comparison.py" --output_dir "$run_dir/comparison" "$@")
         ;;
     *) echo "Unknown mode: $mode" >&2; exit 2 ;;
 esac
@@ -60,7 +66,7 @@ esac
 
 if [[ "$mode" == check ]]; then
     for test in p01_test_linear-regression.py p02_test_comparison.py p03_test_iteration.py; do
-        srun --ntasks=1 --cpus-per-task="$OMP_NUM_THREADS" "$python" "$lab/main/$test"
+        srun --ntasks=1 --cpus-per-task="$OMP_NUM_THREADS" "$python" "$lab/scr/$test"
     done
 else
     srun --ntasks=1 --cpus-per-task="$OMP_NUM_THREADS" "${command[@]}"

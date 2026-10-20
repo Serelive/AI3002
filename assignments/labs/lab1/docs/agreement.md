@@ -10,11 +10,11 @@
 
 Use `pNN` for phases and `iNN` for increments, with two-digit numbers (e.g., `p01-i02`). These are lightweight progress markers, not rigid stages.
 
-## Files in `main/`
+## Files in `scr/`
 
-Every newly created or added file in `main/` must use `pNN_<description>.<extension>`, where `NN` is the owning phase's two-digit number. This applies to Python scripts, notebooks, and other new files. Use descriptive names, for example `p02_check_world.py`, `p02_search_world.py`, and `p02_scaffold.ipynb`.
+Every newly created or added file in `scr/` must use `pNN_<description>.<extension>`, where `NN` is the owning phase's two-digit number. This applies to Python scripts, notebooks, and other new files. Use descriptive names, for example `p02_check_world.py`, `p02_search_world.py`, and `p02_scaffold.ipynb`.
 
-Keep existing supplied/shared files such as `model.py`, `train1.py`, and `train23.py` at their established paths when editing them; this rule governs new files, not a blanket rename of existing files. New phase-specific helpers must use the prefix even when they import these shared modules. Keep generated artifacts in `output/pNN/`, not `main/`.
+Keep existing supplied/shared files such as `model.py`, `train1.py`, and `train23.py` at their established paths when editing them; this rule governs new files, not a blanket rename of existing files. New phase-specific helpers must use the prefix even when they import these shared modules. Keep generated artifacts in `output/pNN/`, not `scr/`.
 
 ## Documentation
 
@@ -32,3 +32,9 @@ Examples: `reference_quickguide.md`, `p01-i02_plan.md`, and `p01_review-r01_mode
 ## Version control
 
 Use Git for version history; keep filenames stable. After creating or meaningfully editing a document, check it, stage the relevant changes, and commit them together. Respect repository ignore rules and leave unrelated changes out.
+
+## Generated output
+
+Place phase-owned artifacts under `lab1/output/pNN/`: Task 1 figures/tables in `p01`, world training and comparison results in `p02`, and truth results in `p03`. Put run directories, logs, extracted features, and selected candidates beneath the owning phase. Shared Slurm checks may use `output/shared/slurm/` because they cover multiple phases. Final chosen deliverables belong in `submission/`.
+
+Training defaults follow this mapping; explicit `--output_dir` remains available for temporary checks and custom run subdirectories. For coursework runs, choose a directory inside the owning phase. Keep supplied datasets unchanged. Legacy files retain their original locations until deliberately migrated or deleted; consult the [output audit](../../../../docs/LAB1_OUTPUT_AUDIT.md) first.

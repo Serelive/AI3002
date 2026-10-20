@@ -2,7 +2,7 @@
 
 ## Starting point and priorities
 
-This guide is the entry point for the next Lab 1 conversation. Paths are relative to `assignments/labs/lab1/`; shell commands run from the course repository root. Read `docs/instruction.pdf` §2.3 and §3, then `main/model.py` and `main/train23.py`.
+This guide is the entry point for the next Lab 1 conversation. Paths are relative to `assignments/labs/lab1/`; shell commands run from the course repository root. Read `docs/instruction.pdf` §2.3 and §3, then `scr/model.py` and `scr/train23.py`.
 
 **Phase 2 is sufficiently implemented according to the learner.** Promising settings are layers 11 or 35, L1/L2 approximately 0.3–1.0, and learning rate around 0.0001. Further Phase 2 training and refinement will continue on the **107 platform**. Preserve its code and selected artifacts; focus this conversation on Task 3. These ranges describe Task 2 experiments, not starting hyperparameters to transfer unchanged to logistic regression.
 
@@ -14,7 +14,7 @@ Task 3 predicts a sentence's dataset label from one layer's Qwen3-4B-Base repres
 
 Local files inspected for this handoff:
 
-| Input under `main/datasets/truth/` | Training | Validation |
+| Input under `scr/datasets/truth/` | Training | Validation |
 | --- | --- | --- |
 | CSV columns | `sentence`, `label` | `sentence`, `label` |
 | Rows | 5,088 | 300 |
@@ -53,7 +53,7 @@ model = LogisticRegressionModel(
 
 The current truth branch consistently trains and predicts on raw features and exports raw-space parameters. Standardized arrays are computed earlier but unused by that branch. Keep a raw baseline, or deliberately adopt the same training-only standardization workflow used for Task 2. If standardizing, use transformed features for both fit and predict, then export `w_raw = w_z / scale` and `b_raw = b_z - mean @ w_raw`.
 
-The runner already rejects non-finite final parameters/predictions and existing output archives. Pass a fresh `--output_dir` under `output/p03/`; the default still points to `output/world/`. The earlier truth scale/export bugs described in historical reviews have been corrected. The ignored CLI settings above are the current issue.
+The runner already rejects non-finite final parameters/predictions and existing output archives. Pass a fresh `--output_dir` under `output/p03/`; the default routes world to `output/p02/` and truth to `output/p03/`. The earlier truth scale/export bugs described in historical reviews have been corrected. The ignored CLI settings above are the current issue.
 
 ## Short implementation plan
 
@@ -75,7 +75,7 @@ After the CLI fix, this is the command pattern; replace uppercase placeholders w
   --lr RATE --l1 0 --l2 PENALTY --max_iter ITERATIONS
 ```
 
-The comparison runner for Task 2 is a useful structural reference, but it is hardcoded for world models and **minimizes MSE**. If a runner is needed, create `main/p03_comparison.py`: use task `truth`, maximize accuracy, save each configuration separately, and export `truth.npz` with its layer. For equal accuracy, prefer a predeclared simple tie rule, such as lower validation binary cross-entropy. Keep settings, score, runtime, and the selected artifact; reuse the existing approach rather than designing new infrastructure.
+The comparison runner for Task 2 is a useful structural reference, but it is hardcoded for world models and **minimizes MSE**. If a runner is needed, create `scr/p03_comparison.py`: use task `truth`, maximize accuracy, save each configuration separately, and export `truth.npz` with its layer. For equal accuracy, prefer a predeclared simple tie rule, such as lower validation binary cross-entropy. Keep settings, score, runtime, and the selected artifact; reuse the existing approach rather than designing new infrastructure.
 
 A constant classifier scores 50% on this balanced validation set. Each corrected prediction changes accuracy by about 0.33 percentage points, so small differences may reflect only a few examples. Start with layers and L2, then add L1 if useful. Raw-feature and standardized-feature penalties have different meanings; label the preprocessing choice in the results.
 
@@ -103,6 +103,6 @@ Use the same repository revision, dependencies, and supplied inputs. Raw dataset
 
 Suggested opening for the next conversation:
 
-> Work on Lab 1 Task 3 using `docs/p03/p03_guide_main.md`. Phase 2 implementation is sufficient; further tuning is deferred to the 107 platform. First fix the truth branch's ignored CLI settings and review logistic regression, then establish a baseline. Prioritize the handout deliverables and a manageable validation comparison. Keep new scripts under `main/p03_*.py` and documents under `docs/p03/`. Inspect current files before editing and preserve Phase 2 behavior.
+> Work on Lab 1 Task 3 using `docs/p03/p03_guide_main.md`. Phase 2 implementation is sufficient; further tuning is deferred to the 107 platform. First fix the truth branch's ignored CLI settings and review logistic regression, then establish a baseline. Prioritize the handout deliverables and a manageable validation comparison. Keep new scripts under `scr/p03_*.py` and documents under `docs/p03/`. Inspect current files before editing and preserve Phase 2 behavior.
 
 This guide was checked against the local handout, current scripts, CSV class counts, and feature-file shapes. Task 3 model training was not executed while preparing it.

@@ -6,13 +6,13 @@ This roadmap covers **p01 / Task 1**, **p02 / Task 2**, and **p03 / Task 3**. Ph
 
 | Increment | Goal |
 | --- | --- |
-| `p01-i00` | Connect the equations in `instruction.pdf` §2.1 to `main/model.py`: array shapes, predictions, losses, gradients, and parameter updates. |
+| `p01-i00` | Connect the equations in `instruction.pdf` §2.1 to `scr/model.py`: array shapes, predictions, losses, gradients, and parameter updates. |
 | `p01-i01` | Implement `LinearRegressionModel.fit()` using NumPy gradient descent, L1/L2 regularization, and a stopping rule; leave the bias unregularized. |
 | `p01-i02` | Implement `LinearRegressionModel.predict()` with one prediction per input row. |
 | `p01-i03` | Check and debug linear regression on small known examples, including gradient updates and regularization behavior. |
 | `p01-i04` | Implement `LogisticRegressionModel.fit()` with stable numerical calculations, L1/L2 regularization, and a stopping rule; leave the bias unregularized. |
 | `p01-i05` | Implement `LogisticRegressionModel.predict()` to return probabilities, not thresholded labels. |
-| `p01-i06` | Check and debug logistic regression, including probability bounds, extreme scores, and regularization; run both models through `main/train1.py`. |
+| `p01-i06` | Check and debug logistic regression, including probability bounds, extreme scores, and regularization; run both models through `scr/train1.py`. |
 | `p01-i07` | Question 1: reproduce L1/L2 coefficient paths and explain the data source (slides pp. 42 and 48). |
 | `p01-i08` | Question 2: construct an example showing why zeroing small L2 coefficients can be a poor feature-selection method compared with L1 (slides p. 44). |
 | `p01-i09` | Question 3: compare fitting results with scikit-learn under comparable settings. Finalize the answer after Tasks 2–3 if useful. |
@@ -65,4 +65,4 @@ Follow the [p03 guide and handoff](p03/p03_guide_main.md), based on `instruction
 | `p03-i03` | Verify raw-feature inference from float64 weights `(2560,)` and scalar bias `()`; record the layer and reproduction command. |
 | `p03-i04` | Answer report questions 8–9 using observed split differences and selection results. |
 
-New files use `main/p03_*.py` and `docs/p03/`. Retain Phase 2 behavior when editing shared model or training code.
+New files use `scr/p03_*.py` and `docs/p03/`. Retain Phase 2 behavior when editing shared model or training code.

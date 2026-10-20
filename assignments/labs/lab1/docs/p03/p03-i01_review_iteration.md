@@ -1,5 +1,7 @@
 # Task 3 iteration review
 
+Historical review: output paths below describe the reviewed version. Current defaults use `output/p02/` (world) and `output/p03/` (truth); see the [output audit](../../../../../docs/LAB1_OUTPUT_AUDIT.md).
+
 I found **two correctness bugs, one output-path issue, and the remaining performance issue**. The loss formulas and gradients are consistent: finite-difference checks passed for both models.
 
 1. **Early stopping discards updates when training ends between checks.**

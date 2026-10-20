@@ -79,6 +79,8 @@ def parse_args() -> argparse.Namespace:
         required=True,
         help="Last sentence token or last country token",
     )
+    parser.add_argument("--output_dir", type=Path,
+                        help="Output directory; default: output/p02/features (country) or output/p03/features (last)")
     return parser.parse_args()
 
 
@@ -159,14 +161,17 @@ def extract_features(
 def main() -> None:
     args = parse_args()
     rows = load_rows(args.input, args.token_selection)
-    output = args.input.with_name(f"{args.input.stem}.layer{args.layer}.npy")
+    phase = "p02" if args.token_selection == "country" else "p03"
+    output_dir = args.output_dir or Path(__file__).resolve().parent.parent / "output" / phase / "features"
+    output = output_dir / f"{args.input.stem}.layer{args.layer}.npy"
     if output.exists():
-        raise FileExistsError(f"Already exists: {output}; copy the CSV elsewhere")
+        raise FileExistsError(f"Already exists: {output}; choose another --output_dir")
     tokenizer, model = load_model(args.model_dir)
     features = extract_features(
         rows, tokenizer, model, layer=args.layer, selection=args.token_selection
     )
     # Exclusive creation also protects against another job writing this path.
+    output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("xb") as stream:
         np.save(stream, features, allow_pickle=False)
     print(f"Saved {output}: {features.shape}, {features.dtype}")

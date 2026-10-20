@@ -4,13 +4,13 @@
 
 ## 0. 范围、依据与当前状态
 
-先读 `docs/instruction.pdf` 的 §2.1、§2.2、§3、附录 C.1，再读 `main/model.py` 和 `main/train23.py`。除特别说明外，本文路径相对于 `assignments/labs/lab1/`；终端命令在**课程仓库根目录**执行。步骤对应 [roadmap](../roadmap.md) 的 `p02-i00` 至 `p02-i07`。
+先读 `docs/instruction.pdf` 的 §2.1、§2.2、§3、附录 C.1，再读 `scr/model.py` 和 `scr/train23.py`。除特别说明外，本文路径相对于 `assignments/labs/lab1/`；终端命令在**课程仓库根目录**执行。步骤对应 [roadmap](../roadmap.md) 的 `p02-i00` 至 `p02-i07`。
 
 目标：从**某一层**的 2,560 维表征预测 `[纬度, 经度]`。固定 LLM，仅训练线性探测模型；使用已提供的特征无需 GPU，也无需下载 LLM。暂不展开思考题 4–7、地图绘制或表征解释；层数和正则化的选择仍属于主体训练流程。
 
 教师明确要求：选择 0–35 中的一层；导出 `float64` 的 `weights`，形状为 `(2, 2560)`，以及 `bias`，形状为 `(2,)`；第一行/项是纬度，第二行/项是经度；另行提交层号。最终权重可以由库训练得到，但 Task 1 仍要求手写支持 L1、L2 的梯度下降训练过程。
 
-下文的基线、搜索网格与日志格式属于实施建议，并非新增评分要求。[课程仓库](https://github.com/ChangshuoShen/USTC-AI3002-26fall/) 的截止日期是 **2026 年 10 月 21 日**，已于 10 月 14 日核查；本地 `main/README.md` 写的是 10 月 31 日。按 21 日安排，并核对班级通知。本次无法抓取上游实验子目录，因此具体任务要求依据本地 `instruction.pdf`。
+下文的基线、搜索网格与日志格式属于实施建议，并非新增评分要求。[课程仓库](https://github.com/ChangshuoShen/USTC-AI3002-26fall/) 的截止日期是 **2026 年 10 月 21 日**，已于 10 月 14 日核查；本地 `scr/README.md` 写的是 10 月 31 日。按 21 日安排，并核对班级通知。本次无法抓取上游实验子目录，因此具体任务要求依据本地 `instruction.pdf`。
 
 10 月 14 日实际检查：六个 world 特征数组均为有限值 `float16`，形状符合要求；两个 CSV 均有四个预期列且无缺失值。当前 Python / NumPy / pandas 版本为 `3.14.4 / 2.5.3 / 3.0.6`。编写本指南时未执行 Task 2 训练，也未生成模型效果结果。
 
@@ -31,7 +31,7 @@
 
 ## 2. p02-i01：检查输入约定
 
-输入位于 `main/datasets/world/`：
+输入位于 `scr/datasets/world/`：
 
 | 文件 | 形状或内容 |
 | --- | --- |
@@ -87,7 +87,7 @@ Hessian 为 `2 A.T @ A / N` 加上 L2 的对角项，其中偏置不受罚。矩
 当前已有接口如下，仅作参考：
 
 ```bash
-.venv/bin/python assignments/labs/lab1/scr/train23.py world 11 assignments/labs/lab1/output/p02/baseline-layer11.npz
+.venv/bin/python assignments/labs/lab1/scr/train23.py world 11 --output_dir assignments/labs/lab1/output/p02/baseline-layer11
 ```
 
 该命令使用上面的未验证默认值。新增选项后，应显式传入计算得到的学习率和选择的迭代上限。不要将这条参考命令描述为已验证稳定的基线或已获得的实验结果。

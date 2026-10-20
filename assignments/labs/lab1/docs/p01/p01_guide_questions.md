@@ -1,10 +1,10 @@
 # Phase 1 — Guide to questions 1–3
 
-**Yes: use separate experiment scripts**, importing your classes from `model.py`. This is a suggested organization, not a submission requirement. Keep model logic in `main/model.py`, save figures/tables in `output/p01/`, and write the explanations in your report under `report/`. Paths below are relative to `lab1`.
+**Yes: use separate experiment scripts**, importing your classes from `model.py`. This is a suggested organization, not a submission requirement. Keep model logic in `scr/model.py`, save figures/tables in `output/p01/`, and write the explanations in your report under `report/`. Paths below are relative to `lab1`.
 
 ## Question 1 — L1/L2 coefficient paths
 
-Suggested script: `main/question1_paths.py`.
+Suggested script: `scr/question1_paths.py`.
 
 1. Read slides pp. 42 and 48 to identify the plots to reproduce; consult `docs/instruction.pdf` §2.1 for the question.
 2. Construct or select a small regression dataset. Record its source or generation rule and random seed. Use comparable feature scales.
@@ -14,7 +14,7 @@ Suggested script: `main/question1_paths.py`.
 
 ## Question 2 — Why thresholding small L2 coefficients can fail
 
-Suggested script: `main/question2_selection.py`.
+Suggested script: `scr/question2_selection.py`.
 
 1. Read slide p. 44. Construct a regression example with known relevant and irrelevant features; correlated relevant features are a useful starting point.
 2. Split training and validation data with a fixed seed. Fit any scaling on training data only.
@@ -25,7 +25,7 @@ Suggested script: `main/question2_selection.py`.
 
 ## Question 3 — Compare with scikit-learn
 
-Suggested script: `main/question3_comparison.py`; this answer can wait until Tasks 2–3 are complete.
+Suggested script: `scr/question3_comparison.py`; this answer can wait until Tasks 2–3 are complete.
 
 1. Fit your models and scikit-learn models on identical training data and preprocessing.
 2. Match intercept treatment, objective normalization, and regularization strength; equal numerical penalty settings do not necessarily mean equal objectives.

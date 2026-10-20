@@ -64,9 +64,9 @@ From the checkout root in a Bash login shell, set the resource options to values
 ```bash
 # Course-provided defaults; adjust if your portal allocation differs.
 slurm_options=(--partition=Students --qos=qos_stu_default)
-mkdir -p assignments/labs/lab1/output/slurm/logs
+mkdir -p assignments/labs/lab1/output/shared/slurm/logs
 sbatch "${slurm_options[@]}" \
-  --output=assignments/labs/lab1/output/slurm/logs/%x-%j.log \
+  --output=assignments/labs/lab1/output/shared/slurm/logs/%x-%j.log \
   scripts/slurm/lab1.sbatch "$PWD" check
 ```
 
@@ -84,17 +84,18 @@ The current probe code computes with NumPy on CPUs. Requesting a GPU does not ac
 After the check job succeeds, submit a short Task 3 pilot:
 
 ```bash
+mkdir -p assignments/labs/lab1/output/p03/slurm/logs
 sbatch "${slurm_options[@]}" \
-  --output=assignments/labs/lab1/output/slurm/logs/%x-%j.log \
+  --output=assignments/labs/lab1/output/p03/slurm/logs/%x-%j.log \
   scripts/slurm/lab1.sbatch "$PWD" truth 11 \
   --lr 0.01 --l1 0.01 --l2 0.01 --max_iter 100
 ```
 
-For Task 2, replace `truth 11 ...` with `world 11 --lr 0.0001 --l1 0.3 --l2 0.3 --max_iter 10000`. For a small comparison, use `comparison --layers 11 35 --l1 0.3 --l2 0.3 --lr 0.0001 --max_iter 100`. Increase the update budget after checking the pilot.
+For Task 2, create `output/p02/slurm/logs/` under Lab 1 and use that directory in `--output`; replace `truth 11 ...` with `world 11 --lr 0.0001 --l1 0.3 --l2 0.3 --max_iter 10000`. For a small comparison, use `comparison --layers 11 35 --l1 0.3 --l2 0.3 --lr 0.0001 --max_iter 100`. Increase the update budget after checking the pilot.
 
-Each job stores artifacts under `assignments/labs/lab1/output/slurm/job-JOBID/`, with command, commit, working-tree status, and dependency versions in `environment.txt`. The existing models initialize at zero, so these training runs do not need a random seed. Training prints validation metrics to the Slurm log. The comparison runner also writes its result table. Keep the log, environment record, and model together when selecting a result.
+Training jobs store artifacts under `assignments/labs/lab1/output/p02/slurm/job-JOBID/` (world/comparison) or `output/p03/slurm/job-JOBID/` (truth). Cross-phase check jobs use `output/shared/slurm/job-JOBID/`, with command, commit, working-tree status, and dependency versions in `environment.txt`. The existing models initialize at zero, so these training runs do not need a random seed. Training prints validation metrics to the Slurm log. The comparison runner also writes its result table. Keep the log, environment record, and model together when selecting a result.
 
-Slurm copies the batch script, not the repository: keep the checkout unchanged while its jobs are queued or running. Commit/pull between batches, or use separate checkouts for simultaneous versions. Jobs can pass an explicit `--output_dir`, but the default job-specific paths are easiest to keep separate.
+Slurm copies the batch script, not the repository: keep the checkout unchanged while its jobs are queued or running. Commit/pull between batches, or use separate checkouts for simultaneous versions. Jobs can pass an explicit `--output_dir`; keep it beneath the owning phase. Create the matching Slurm log directory before submission, since Slurm opens `--output` before the batch script starts.
 
 ## Monitor and continue
 
@@ -102,7 +103,7 @@ Slurm copies the batch script, not the repository: keep the checkout unchanged w
 squeue -u "$USER"
 # Replace JOBID with the submitted numeric ID:
 sacct -j JOBID --format=JobID,State,ExitCode,Elapsed,MaxRSS
-tail -f assignments/labs/lab1/output/slurm/logs/ai3002-lab1-JOBID.log
+tail -f assignments/labs/lab1/output/p03/slurm/logs/ai3002-lab1-JOBID.log
 # Cancel a job when needed:
 scancel JOBID
 ```

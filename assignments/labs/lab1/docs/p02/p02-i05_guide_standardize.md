@@ -8,7 +8,7 @@ Your previous NaN problem came from an excessive learning rate. Standardization 
 
 ## Where to put it
 
-Add two small helpers to **`main/train23.py`**, alongside `load_split`: one to fit/apply feature standardization, and one to convert trained parameters back to raw-feature coordinates. Call them in the world branch and import them into your existing `main/p02_comparison.py` when building the comparison loop.
+Add two small helpers to **`scr/train23.py`**, alongside `load_split`: one to fit/apply feature standardization, and one to convert trained parameters back to raw-feature coordinates. Call them in the world branch and import them into your existing `scr/p02_comparison.py` when building the comparison loop.
 
 This keeps the CLI and comparison script consistent without another Python file. Keep `LinearRegressionModel` focused on fitting and predicting the arrays it receives. Leave `load_split` returning raw features so preprocessing is explicit and export checks can use the original inputs.
 

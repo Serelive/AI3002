@@ -5,7 +5,7 @@ Chinese companion: [p02_guide_main-zh.md](p02_guide_main-zh.md).
 
 ## 0. Scope, sources, and current status
 Read docs/instruction.pdf sections 2.1, 2.2, 3 and Appendix C.1, then
-main/model.py and main/train23.py. Paths in this guide are relative to
+scr/model.py and scr/train23.py. Paths in this guide are relative to
 assignments/labs/lab1 unless explicitly stated otherwise. Shell commands run
 from the course repository root. Follow docs/roadmap.md increments p02-i00-i07.
 
@@ -21,7 +21,7 @@ requires handwritten gradient-descent training with L1 and L2 support.
 
 Planning choices below (baseline, search grid, logs) are recommendations, not
 additional grading rules. The course repository lists October 21, 2026 as the
-deadline, checked October 14; main/README.md says October 31. Plan for October
+deadline, checked October 14; scr/README.md says October 31. Plan for October
 21 and check class notices. Source:
 https://github.com/ChangshuoShen/USTC-AI3002-26fall/
 The upstream lab directory could not be fetched during this check; detailed
@@ -35,8 +35,8 @@ No Task 2 training results were generated while preparing this guide.
 ## 1. p02-i00: establish the starting point
 Run the existing focused linear-regression checks:
 
-    .venv/bin/python assignments/labs/lab1/main/test_linear_regression.py
-    .venv/bin/python assignments/labs/lab1/main/train23.py --help
+    .venv/bin/python assignments/labs/lab1/scr/test_linear_regression.py
+    .venv/bin/python assignments/labs/lab1/scr/train23.py --help
 
 The current model resets parameters to zero in fit(), takes max_iter gradient
 steps, and has no convergence log or early stopping. Current defaults are
@@ -49,7 +49,7 @@ Done when: you can trace load_split -> fit -> predict -> MSE -> np.savez and
 explain each shape. A passing toy test does not establish full-data stability.
 
 ## 2. p02-i01: inspect the data contract
-Inputs in main/datasets/world/:
+Inputs in scr/datasets/world/:
 
     train.csv                 500 rows; sentence, country, latitude, longitude
     valid.csv                 130 rows; same columns
@@ -118,7 +118,7 @@ before interpreting an L1 comparison.
 
 Current executable interface, shown for reference, is:
 
-    .venv/bin/python assignments/labs/lab1/main/train23.py world 11 assignments/labs/lab1/output/p02/baseline-layer11.npz
+    .venv/bin/python assignments/labs/lab1/scr/train23.py world 11 --output_dir assignments/labs/lab1/output/p02/baseline-layer11
 
 It uses the unverified defaults above. After adding options, explicitly pass
 the numerically computed rate and chosen iteration limit. Do not treat the

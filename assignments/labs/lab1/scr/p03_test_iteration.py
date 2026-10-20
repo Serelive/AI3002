@@ -78,7 +78,7 @@ class IterationTests(unittest.TestCase):
                  patch.object(Path, 'exists', return_value=False):
                 with self.assertRaisesRegex(RuntimeError, 'stop'):
                     train23.main(args)
-            expected = Path(train23.__file__).parent.parent / 'output' / task
+            expected = Path(train23.__file__).resolve().parent.parent / 'output' / {'world': 'p02', 'truth': 'p03'}[task]
             self.assertEqual(args.output_dir, expected)
 
 
