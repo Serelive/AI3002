@@ -1,0 +1,27 @@
+# Proposed exact historical input paths; no source-code directories.
+assignments/homeworks/hw1/docs/HW1-26.pdf
+assignments/labs/lab1/backups/HW1-26.pdf
+assignments/labs/lab1/backups/LAB1.pdf
+assignments/labs/lab1/backups/LAB1.zip
+assignments/labs/lab1/docs/HW1-26.pdf
+assignments/labs/lab1/docs/LAB1.pdf
+assignments/labs/lab1/main/HW1-26.pdf
+assignments/labs/lab1/main/LAB1.pdf
+assignments/labs/lab1/main/LAB1.zip
+assignments/labs/lab1/main/README.pdf
+assignments/labs/lab1/main/datasets/truth/train.csv
+assignments/labs/lab1/main/datasets/truth/train.layer11.npy
+assignments/labs/lab1/main/datasets/truth/train.layer23.npy
+assignments/labs/lab1/main/datasets/truth/train.layer35.npy
+assignments/labs/lab1/main/datasets/truth/valid.csv
+assignments/labs/lab1/main/datasets/truth/valid.layer11.npy
+assignments/labs/lab1/main/datasets/truth/valid.layer23.npy
+assignments/labs/lab1/main/datasets/truth/valid.layer35.npy
+assignments/labs/lab1/main/datasets/world/train.csv
+assignments/labs/lab1/main/datasets/world/train.layer11.npy
+assignments/labs/lab1/main/datasets/world/train.layer23.npy
+assignments/labs/lab1/main/datasets/world/train.layer35.npy
+assignments/labs/lab1/main/datasets/world/valid.csv
+assignments/labs/lab1/main/datasets/world/valid.layer11.npy
+assignments/labs/lab1/main/datasets/world/valid.layer23.npy
+assignments/labs/lab1/main/datasets/world/valid.layer35.npy

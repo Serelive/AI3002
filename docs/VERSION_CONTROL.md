@@ -41,3 +41,5 @@ git commit -m "Describe the completed change"
 Commit validated task changes automatically under the repository agreement. Review unrelated edits separately. Synchronize the cluster checkout between job batches so queued or running jobs use stable code. Transfer experiment results separately and deliberately select submission files.
 
 The [archived Git tutorial](../archive/learning/GIT_COURSEWORK_LECTURE.md) covers Git concepts and worked examples.
+
+For the proposed removal of large historical inputs, see the [history cleanup review](GIT_HISTORY_CLEANUP_REVIEW.md) and its exact path list. The rewrite is documented but has not been executed.
