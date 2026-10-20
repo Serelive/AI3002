@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Course-level Python workspace for AI3002"
 requires-python = ">=3.11"
 dependencies = [
+    "git-filter-repo>=2.47.0",
     "matplotlib>=3.11.2",
     "numpy>=2.4.6",
     "pandas>=3.0.6",
