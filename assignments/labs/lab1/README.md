@@ -4,9 +4,9 @@ For Phase 1 report experiments, see [the questions 1–3 guide](docs/p01/p01_gui
 
 For Task 2, follow the [minimal main checklist](docs/p02/p02_checklist_main.md): train a working coordinate predictor, make a small validation comparison, and export the required weights and layer. The [roadmap](docs/roadmap.md) now follows these priorities; the earlier detailed guides are optional references. Regression/CLI checks (`p02-i00`) and input checks (`p02-i01`) passed on October 15. The learner considers Phase 2 sufficiently implemented; further training/refinement will continue on the 107 platform. Promising settings are layers 11/35, L1 and L2 around 0.3–1.0, and learning rate around 0.0001. These ranges are not a single final submission selection. Additional engineering gates from the former eleven-step checklist are retired.
 
-Status: linear-regression fixes pass focused checks, including the stale-parameter regression covered in [p01-i03 review-r03](docs/p01/p01-i03_review-r03.md). Task 2 experiments have been run by the learner. Logistic regression is implemented but awaits focused review; the truth branch must pass CLI training settings into its model before Task 3 tuning.
+Status: linear-regression fixes pass focused checks, including the stale-parameter regression covered in [p01-i03 review-r03](../../../archive/lab1/reviews/p01/p01-i03_review-r03.md). Task 2 experiments have been run by the learner. Logistic regression, CLI settings, early stopping, and raw-feature exports now pass focused checks; Task 3 tuning remains.
 
-Start with [the quick guide](docs/reference_quickguide.md) for reading order, file roles, and a time budget. The [current course repository](https://github.com/ChangshuoShen/USTC-AI3002-26fall/) lists October 21, 2026 as the deadline (checked October 9), conflicting with October 31 in the supplied `main/README.md`. Plan for October 21 and confirm through class notices.
+Start with [the quick guide](docs/reference_quickguide.md) for reading order, file roles, and a time budget. The [current course repository](https://github.com/ChangshuoShen/USTC-AI3002-26fall/) lists October 21, 2026 as the deadline (rechecked October 20), conflicting with October 31 in the supplied `main/README.md`. Plan for October 21 and confirm through class notices.
 
 - Inputs: originals in `backups/`, handouts in `docs/`, supplied code and immutable datasets in `main/`.
 - Git policy: datasets, original archives, handout PDFs, and report build products stay local. See [input recovery and verification](docs/INPUTS.md); code, report source, and selected submissions remain eligible for tracking.
@@ -25,13 +25,13 @@ For training, pass the task/layer and explicit `--output_dir`, `--lr`, `--l1`, `
 
 Task 2 Step 2 (`p02-i01`) passed on October 15. Reproduce the six-pair input validation from the course root with `.venv/bin/python assignments/labs/lab1/main/p02_check_world.py`. Evidence: `output/p02/input-check.txt`. This validates shapes, types, finite values, coordinate bounds, and target order/equality; it does not independently prove the semantic alignment of supplied feature rows.
 
-Task 2 numerical diagnosis (October 16): [NaN review](docs/p02/p02-i03_review_nan.md) identifies an excessive layer-11 learning rate and records a finite 10,000-update rerun at a smaller rate. This is historical diagnosis; subsequent Task 2 work added standardization, stable runs, and separate experiment outputs.
+Task 2 numerical diagnosis (October 16): [NaN review](../../../archive/lab1/reviews/p02/p02-i03_review_nan.md) identifies an excessive layer-11 learning rate and records a finite 10,000-update rerun at a smaller rate. This is historical diagnosis; subsequent Task 2 work added standardization, stable runs, and separate experiment outputs.
 
 For the next preprocessing decision, see the [standardization guide](docs/p02/p02-i05_guide_standardize.md): a single pilot, shared helpers in `train23.py`, and raw-feature parameter export. Training code is unchanged by this documentation update.
 
-Standardization review (October 17): [review findings](docs/p02/p02-i05_review_standardization.md) confirm correct world preprocessing and raw-feature export. The two truth-branch scale/export regressions in that review were corrected later; the current remaining issue is ignored CLI training settings.
+Standardization review (October 17): [review findings](../../../archive/lab1/reviews/p02/p02-i05_review_standardization.md) confirm correct world preprocessing and raw-feature export. The two truth-branch scale/export regressions in that review were corrected later; CLI settings and the later early-stopping fixes are now implemented and tested.
 
-The [Task 2 comparison review](docs/p02/p02-i05_review_comparison.md) documents four subsequently implemented fixes: supply parser positionals, preserve the selected model, reject non-finite results before export, and save the results table under `output/p02/`.
+The [Task 2 comparison review](../../../archive/lab1/reviews/p02/p02-i05_review_comparison.md) documents four subsequently implemented fixes: supply parser positionals, preserve the selected model, reject non-finite results before export, and save the results table under `output/p02/`.
 
 ## Running the Task 2 comparison
 
@@ -107,3 +107,7 @@ For a separate pilot artifact, run:
   --lr 0.01 --l1 0.01 --l2 0.01 --max_iter 100 \
   --output_dir assignments/labs/lab1/output/p03/i01-pilot
 ```
+
+## HPC continuation
+
+Follow the [107 Slurm handoff](../../../docs/HPC.md) for environment setup, dataset transfer, a compute-node check job, and training commands. `scripts/slurm/lab1.sbatch` (from the repository root) supports `check`, `world`, `truth`, and `comparison`; each job gets its own output directory and environment record. Resolved reviews are retained in [the archive](../../../archive/README.md). Existing `main/output/` artifacts remain local and ignored.

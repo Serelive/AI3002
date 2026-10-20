@@ -44,7 +44,7 @@ This follows by expanding `((X - mu) / scale) @ W_z.T + b_z`. Save `W_raw` and `
 
 ## Keep the experiment small
 
-1. On layer 11, run one standardized pilot with `l1=0` and one L2 setting. Select a stable learning rate for `train_z` using the curvature calculation in the [NaN review](p02-i03_review_nan.md), replacing `train_x` with `train_z`.
+1. On layer 11, run one standardized pilot with `l1=0` and one L2 setting. Select a stable learning rate for `train_z` using the curvature calculation in the [NaN review](../../../../../archive/lab1/reviews/p02/p02-i03_review_nan.md), replacing `train_x` with `train_z`.
 2. Compare its validation MSE with the raw-feature baseline and choose the preprocessing for the small layer/L2 comparison. Record the choice with the settings.
 3. Tune L2 before adding L1. Standardization changes the penalty: `w_z = scale * w_raw`, so an L2 penalty on `w_z` weights raw coefficients by `scale**2`. Retune regularization rather than copying the raw-feature optimum.
 

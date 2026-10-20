@@ -28,6 +28,10 @@ dist/
 .vscode/
 .ipynb_checkpoints/
 /.codex/
+/.agents/
+/.aws/
+*.pem
+*.key
 
 # Course materials: retain indexes and placeholders, not originals
 /materials/**
@@ -62,6 +66,8 @@ dist/
 /assignments/labs/lab1/docs/papers/**/*.pdf
 /assignments/homeworks/hw1/docs/*.pdf
 /assignments/labs/*/output/
+/assignments/labs/*/main/output/
+/slurm-*.out
 /assignments/homeworks/*/output/
 /assignments/labs/lab1/report/*.aux
 /assignments/labs/lab1/report/*.fdb_latexmk

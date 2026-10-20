@@ -66,6 +66,10 @@ When a conceptual issue needs cloud discussion, provide a compact handoff contai
 Use Python on Linux with Codex CLI and PyCharm. Open the course repository root in PyCharm and normally start Codex CLI there. Reuse one root .venv and the repository's dependency workflow, normally pyproject.toml with an appropriate lock file when used. Do not create per-assignment environments unless incompatible requirements justify an exception.
 Put genuinely shared code in src/course_utils/ and configure its importability through the existing project setup; avoid ad hoc sys.path edits and imports across assignments. Use pathlib and project-relative paths, and give Linux shell commands using the configured interpreter. Prefer readable, explicit Python and only the packages needed by the assignment. Introduce numerical or ML libraries according to the actual course requirements rather than assuming a framework. Do not assume a GPU is available.
 
+## Slurm HPC workflow
+
+On the 107 platform, use login nodes for editing, Git, file transfers, environment setup, and job submission. Run training, numerical tests, and interactive computations on allocated compute nodes. Follow `docs/HPC.md` and use `scripts/slurm/lab1.sbatch` for Lab 1 jobs. Recreate the root `.venv` with `uv sync --locked` on shared storage; keep data transfers separate from Git. Obtain partition, account, and QoS settings from the user or current platform configuration. Match numerical-library threads to allocated CPUs, retain job logs and environment records, and keep a checkout stable while its jobs are queued or running.
+
 ## Course-specific priorities
 
 User-supplied grading context: Individual project 60%; team project 40%; extra credit of 2 points for useful suggestions. The scale and application of the extra credit are not specified; verify before calculating a final grade.

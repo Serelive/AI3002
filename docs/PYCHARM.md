@@ -6,4 +6,4 @@
 4. Keep the bundled Git integration enabled. PyCharm and command-line Git operate on the same local history.
 5. Do not commit `.idea/`; it is intentionally ignored because most settings are machine-specific.
 
-The initial environment contains only Python's standard tooling. Add third-party packages only when an assignment requires them, and record the dependency decision in `pyproject.toml` plus a lock file when a locking workflow is adopted.
+Install the recorded dependencies with `uv sync --locked` from the repository root. `pyproject.toml` and `uv.lock` define the environment used by the local scripts and HPC jobs.
