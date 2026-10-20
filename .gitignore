@@ -59,14 +59,14 @@ dist/
 !/assignments/*/output/**/.gitkeep
 
 # Actual nested course layout: supplied inputs and generated files stay local
-/assignments/labs/lab1/main/datasets/
+/assignments/labs/lab1/scr/datasets/
 /assignments/labs/lab1/backups/
 /assignments/labs/lab1/docs/*.pdf
 # Reference paper PDFs stay local; track their index and checksums
 /assignments/labs/lab1/docs/papers/**/*.pdf
 /assignments/homeworks/hw1/docs/*.pdf
 /assignments/labs/*/output/
-/assignments/labs/*/main/output/
+/assignments/labs/lab1/scr/output/
 /slurm-*.out
 /assignments/homeworks/*/output/
 /assignments/labs/lab1/report/*.aux

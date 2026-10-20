@@ -23,7 +23,7 @@ Used the root `.venv` with NumPy 2.5.3; all examples are deterministic.
 Reproduce the supplied example from the repository root:
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/train1.py
+.venv/bin/python assignments/labs/lab1/scr/train1.py
 ```
 
 The iteration limit is an acceptable stopping rule, and leaving the bias unregularized is correct. After fixing the findings, rerun the one-step check and verify that the supplied linear example approaches `w=[2,-1]`, `b=1`, with near-zero MSE. Those post-fix checks have **not** been executed. No implementation files were modified.

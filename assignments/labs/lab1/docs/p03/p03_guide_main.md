@@ -70,7 +70,7 @@ For the first run, fix L1 at zero and choose one L2 value. Use a short training 
 After the CLI fix, this is the command pattern; replace uppercase placeholders with the pilot's numeric settings:
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/train23.py truth 11 \
+.venv/bin/python assignments/labs/lab1/scr/train23.py truth 11 \
   --output_dir assignments/labs/lab1/output/p03/baseline-layer11 \
   --lr RATE --l1 0 --l2 PENALTY --max_iter ITERATIONS
 ```

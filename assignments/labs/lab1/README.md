@@ -6,19 +6,19 @@ For Task 2, follow the [minimal main checklist](docs/p02/p02_checklist_main.md):
 
 Status: linear-regression fixes pass focused checks, including the stale-parameter regression covered in [p01-i03 review-r03](../../../archive/lab1/reviews/p01/p01-i03_review-r03.md). Task 2 experiments have been run by the learner. Logistic regression, CLI settings, early stopping, and raw-feature exports now pass focused checks; Task 3 tuning remains.
 
-Start with [the quick guide](docs/reference_quickguide.md) for reading order, file roles, and a time budget. The [current course repository](https://github.com/ChangshuoShen/USTC-AI3002-26fall/) lists October 21, 2026 as the deadline (rechecked October 20), conflicting with October 31 in the supplied `main/README.md`. Plan for October 21 and confirm through class notices.
+Start with [the quick guide](docs/reference_quickguide.md) for reading order, file roles, and a time budget. The [current course repository](https://github.com/ChangshuoShen/USTC-AI3002-26fall/) lists October 21, 2026 as the deadline (rechecked October 20), conflicting with October 31 in the supplied `scr`. Plan for October 21 and confirm through class notices.
 
-- Inputs: originals in `backups/`, handouts in `docs/`, supplied code and immutable datasets in `main/`.
+- Inputs: originals in `backups/`, handouts in `docs/`, supplied code and immutable datasets in `scr`.
 - Git policy: datasets, original archives, handout PDFs, and report build products stay local. See [input recovery and verification](docs/INPUTS.md); code, report source, and selected submissions remain eligible for tracking.
 - Specification: `docs/instruction.pdf`; `../../homeworks/hw1/docs/HW1-26.pdf` is separate supporting theory homework.
-- Main implementation: `main/model.py`; training entry points: `main/train1.py` and `main/train23.py`.
+- Main implementation: `scr`; training entry points: `scr` and `scr`.
 - Planned deliverables: code, PDF report, two `.npz` parameter files and layer numbers. No final deliverables selected yet.
 - Environment: reuse the root `.venv`; NumPy/pandas for core scripts, scikit-learn/matplotlib for comparisons and plots. Dependency setup is not part of this orientation task.
 
 The current training CLI can be inspected from the course repository root:
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/train23.py --help
+.venv/bin/python assignments/labs/lab1/scr/train23.py --help
 ```
 
 For training, pass the task/layer and explicit `--output_dir`, `--lr`, `--l1`, `--l2`, and `--max_iter` settings. Record the actual selected command and score after the experiment; no training settings are claimed as validated here.
@@ -40,16 +40,16 @@ The comparison runner now gives each invocation a new timestamped batch under `o
 Run the current 27-configuration follow-up grid from the course root:
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/p02_comparison.py
+.venv/bin/python assignments/labs/lab1/scr/p02_comparison.py
 ```
 
 The current defaults use three layers, L1/L2 values `[0.2, 0.3, 1.0]`, learning rate `0.0001`, and 10,000 updates. At seven seconds per run, 27 runs take approximately three minutes, excluding overhead; actual runtimes vary. Keep the previous selected model as a baseline. See the [comparison notes](docs/p02/p02-i05_log_comparison.md) for the initial result. To divide layers between two PCs with the same code, dependencies, and input files:
 
 ```bash
 # PC 1
-.venv/bin/python assignments/labs/lab1/main/p02_comparison.py --layers 11 23
+.venv/bin/python assignments/labs/lab1/scr/p02_comparison.py --layers 11 23
 # PC 2
-.venv/bin/python assignments/labs/lab1/main/p02_comparison.py --layers 35
+.venv/bin/python assignments/labs/lab1/scr/p02_comparison.py --layers 35
 ```
 
 Each PC selects its own batch winner. Compare those winners' MSEs and retain the lower-scoring model together with its layer and settings. Local files are not automatically synchronized. Optional `--l1`, `--l2`, and `--lr` accept lists; `--max_iter` changes the update budget and `--output_dir` sets the batch parent.
@@ -59,7 +59,7 @@ The standalone `train23.py` now rejects invalid training settings, stops world t
 Verification: four focused checks passed for separate outputs, best-model preservation, failed/all-failed runs, interruption handling, export equivalence, and overwrite protection. A two-configuration, 20-update layer-11 smoke run passed on real data using temporary outputs; the full grid has not been run by this change. Reproduce the focused checks with:
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/p02_test_comparison.py
+.venv/bin/python assignments/labs/lab1/scr/p02_test_comparison.py
 ```
 
 The older terminal log records scores but cannot restore overwritten per-configuration weights. Keep it as historical evidence; use the new batch outputs for selecting the final artifact.
@@ -81,14 +81,14 @@ against the last significant-improvement reference. The models expose `n_iter_`,
 The truth branch now trains and validates on features standardized using training
 statistics, then exports raw-feature weights and bias. Default outputs are under
 `output/<task>/`, with existing-file protection. Existing artifacts under
-`main/output/` have not been moved or selected for submission.
+`scr` have not been moved or selected for submission.
 
 Reproduce the focused checks from the repository root:
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/p03_test_iteration.py
-.venv/bin/python assignments/labs/lab1/main/p01_test_linear-regression.py
-.venv/bin/python assignments/labs/lab1/main/p02_test_comparison.py
+.venv/bin/python assignments/labs/lab1/scr/p03_test_iteration.py
+.venv/bin/python assignments/labs/lab1/scr/p01_test_linear-regression.py
+.venv/bin/python assignments/labs/lab1/scr/p02_test_comparison.py
 ```
 
 All 12 tests passed. Coverage includes final-update boundaries, patience with
@@ -103,11 +103,11 @@ now uses tolerances appropriate to training-loss early stopping.
 For a separate pilot artifact, run:
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/train23.py truth 11 \
+.venv/bin/python assignments/labs/lab1/scr/train23.py truth 11 \
   --lr 0.01 --l1 0.01 --l2 0.01 --max_iter 100 \
   --output_dir assignments/labs/lab1/output/p03/i01-pilot
 ```
 
 ## HPC continuation
 
-Follow the [107 Slurm handoff](../../../docs/HPC.md) for environment setup, dataset transfer, a compute-node check job, and training commands. `scripts/slurm/lab1.sbatch` (from the repository root) supports `check`, `world`, `truth`, and `comparison`; each job gets its own output directory and environment record. Resolved reviews are retained in [the archive](../../../archive/README.md). Existing `main/output/` artifacts remain local and ignored.
+Follow the [107 Slurm handoff](../../../docs/HPC.md) for environment setup, dataset transfer, a compute-node check job, and training commands. `scripts/slurm/lab1.sbatch` (from the repository root) supports `check`, `world`, `truth`, and `comparison`; each job gets its own output directory and environment record. Resolved reviews are retained in [the archive](../../../archive/README.md). Existing `scr` artifacts remain local and ignored.

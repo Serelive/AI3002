@@ -43,16 +43,16 @@ Create a portable input bundle on your workstation, from the repository root:
 ```bash
 mkdir -p scratch/hpc-transfer
 tar -czf scratch/hpc-transfer/lab1-datasets.tar.gz \
-  assignments/labs/lab1/main/datasets
+  assignments/labs/lab1/scr/datasets
 sha256sum scratch/hpc-transfer/lab1-datasets.tar.gz
 ```
 
-Upload the bundle using the portal's file manager. On the cluster, verify its checksum and extract it from the repository root into a fresh checkout. This restores `assignments/labs/lab1/main/datasets/` without replacing code. Check all 16 dataset files:
+Upload the bundle using the portal's file manager. On the cluster, verify its checksum and extract it from the repository root into a fresh checkout. This restores `../assignments/labs/lab1/scr` without replacing code. Check all 16 dataset files:
 
 ```bash
 sha256sum /path/to/uploaded/lab1-datasets.tar.gz
 tar -xzf /path/to/uploaded/lab1-datasets.tar.gz
-grep 'main/datasets/' assignments/labs/lab1/docs/input-checksums.sha256 | sha256sum -c -
+grep 'scr/datasets/' assignments/labs/lab1/docs/input-checksums.sha256 | sha256sum -c -
 ```
 
 Replace `/path/to/uploaded/` with the actual upload directory. For handouts and the full original archive, use [input recovery instructions](../assignments/labs/lab1/docs/INPUTS.md). Copy selected prior experiment outputs separately if you want to compare against them; Git does not carry these artifacts.

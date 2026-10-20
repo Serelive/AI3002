@@ -17,7 +17,7 @@ Python 3.11 or later is required. Local checks use Python 3.14.4. Recreate `.ven
 
 | Path | Purpose |
 | --- | --- |
-| `assignments/labs/lab1/main/` | Models, training scripts, focused tests, and working notebook |
+| `assignments/labs/lab1/scr` | Models, training scripts, focused tests, and working notebook |
 | `assignments/labs/lab1/docs/` | Active guides, input provenance, and current review |
 | `assignments/labs/lab1/output/` | Local experiment results and Slurm logs; ignored |
 | `assignments/labs/lab1/report/` | Report source |

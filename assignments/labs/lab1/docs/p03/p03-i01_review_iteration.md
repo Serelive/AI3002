@@ -3,7 +3,7 @@
 I found **two correctness bugs, one output-path issue, and the remaining performance issue**. The loss formulas and gradients are consistent: finite-difference checks passed for both models.
 
 1. **Early stopping discards updates when training ends between checks.**
-   In [model.py](../../main/model.py), lines 42 and 136 at the time of review, you evaluate and save parameters only every 20 updates, then return the saved parameters.
+   In [model.py](../../scr/model.py), lines 42 and 136 at the time of review, you evaluate and save parameters only every 20 updates, then return the saved parameters.
 
    I reproduced these results for both models:
 
@@ -19,7 +19,7 @@ I found **two correctness bugs, one output-path issue, and the remaining perform
    Also distinguish **saving the lowest-loss parameters** from **resetting patience after a significant improvement**. Currently, a smaller loss is saved only when it beats the tolerance threshold, so `best_weights` does not necessarily contain the best evaluated parameters. Maintain a separate reference loss for the patience criterion if you want both behaviors.
 
 2. **The truth model still exports incorrect parameters.**
-   In [train23.py](../../main/train23.py), line 147 at the time of review, training and prediction use raw features, but export applies the inverse standardization transformation.
+   In [train23.py](../../scr/train23.py), line 147 at the time of review, training and prediction use raw features, but export applies the inverse standardization transformation.
 
    For your current raw-feature approach, replace the export assignment with:
 
@@ -31,7 +31,7 @@ I found **two correctness bugs, one output-path issue, and the remaining perform
    Alternatively, use standardized features for both training and prediction and retain the conversion. In a small reproduction, the current conversion changed predicted probabilities by as much as **0.413**.
 
 3. **The default output directory is one level too deep.**
-   [train23.py](../../main/train23.py), line 80 at the time of review, resolves to `lab1/main/output/truth`, rather than the assignment’s `lab1/output/truth`.
+   [train23.py](../../scr/train23.py), line 80 at the time of review, resolves to `lab1/main/output/truth`, rather than the assignment’s `lab1/output/truth`.
 
    Use:
 
@@ -39,10 +39,10 @@ I found **two correctness bugs, one output-path issue, and the remaining perform
    args.output_dir = Path(__file__).parent.parent / "output" / args.task
    ```
 
-   Choosing the directory based on `args.task` is correct. Git reported an untracked `assignments/labs/lab1/main/output/` directory at the time of review.
+   Choosing the directory based on `args.task` is correct. Git reported an untracked `../../scr` directory at the time of review.
 
 4. **Both gradients still create the large temporary matrix discussed earlier.**
-   See [model.py](../../main/model.py), lines 92 and 173 at the time of review. Compute the matrix–vector product before scaling:
+   See [model.py](../../scr/model.py), lines 92 and 173 at the time of review. Compute the matrix–vector product before scaling:
 
    ```python
    # Linear regression

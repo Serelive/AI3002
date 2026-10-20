@@ -19,7 +19,7 @@ Keep implementation in `work/`, or next to this README for a small assignment. P
 Record the exact command from the repository root, required packages, input locations, and random seeds. For example:
 
 ```bash
-.venv/bin/python assignments/A01-topic/work/main.py
+.venv/bin/python assignments/A01-topic/work/scr.py
 ```
 
 Use a fresh process and avoid hidden state from an interactive console or notebook.

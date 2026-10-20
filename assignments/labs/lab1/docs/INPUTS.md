@@ -10,7 +10,7 @@ To restore on another computer, obtain the matching `LAB1.zip` and `HW1-26.pdf` 
 unzip assignments/labs/lab1/backups/LAB1.zip -d /tmp/ai3002-lab1-inputs
 ```
 
-Use an empty temporary destination. Copy its `LAB1/datasets/` directory to `assignments/labs/lab1/main/datasets/`. Copy `LAB1/README.pdf` to both `assignments/labs/lab1/docs/instruction.pdf` and `assignments/labs/lab1/backups/LAB1.pdf`. Restore the supporting homework PDF at both `assignments/labs/lab1/backups/HW1-26.pdf` and `assignments/homeworks/hw1/docs/HW1-26.pdf`. Create missing destination directories first. Do not overwrite existing inputs without checking their identity.
+Use an empty temporary destination. Copy its `LAB1/datasets/` directory to `../scr`. Copy `LAB1/README.pdf` to both `assignments/labs/lab1/docs/instruction.pdf` and `assignments/labs/lab1/backups/LAB1.pdf`. Restore the supporting homework PDF at both `assignments/labs/lab1/backups/HW1-26.pdf` and `assignments/homeworks/hw1/docs/HW1-26.pdf`. Create missing destination directories first. Do not overwrite existing inputs without checking their identity.
 
 Verify from the repository root:
 

@@ -19,8 +19,8 @@
 先运行已有的线性回归检查，并查看训练接口：
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/p01_test_linear-regression.py
-.venv/bin/python assignments/labs/lab1/main/train23.py --help
+.venv/bin/python assignments/labs/lab1/scr/p01_test_linear-regression.py
+.venv/bin/python assignments/labs/lab1/scr/train23.py --help
 ```
 
 当前 `fit()` 每次从零初始化，执行 `max_iter` 次更新，没有收敛日志或提前停止。默认 `lr=0.01`、`max_iter=10000`、`l1=l2=0`，这些设置尚未在 world 数据上验证。
@@ -87,7 +87,7 @@ Hessian 为 `2 A.T @ A / N` 加上 L2 的对角项，其中偏置不受罚。矩
 当前已有接口如下，仅作参考：
 
 ```bash
-.venv/bin/python assignments/labs/lab1/main/train23.py world 11 assignments/labs/lab1/output/p02/baseline-layer11.npz
+.venv/bin/python assignments/labs/lab1/scr/train23.py world 11 assignments/labs/lab1/output/p02/baseline-layer11.npz
 ```
 
 该命令使用上面的未验证默认值。新增选项后，应显式传入计算得到的学习率和选择的迭代上限。不要将这条参考命令描述为已验证稳定的基线或已获得的实验结果。

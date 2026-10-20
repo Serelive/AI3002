@@ -6,7 +6,7 @@ This lecture uses AI3002 repository observations from October 10, 2026. It suppl
 
 Not necessarily. A small, stable, permitted dataset can reasonably be tracked, especially if it is a test fixture or data you created. File purpose, size, provenance, and the repository's policy matter more than the `.csv` extension.
 
-Here, `assignments/labs/lab1/main/datasets/truth/train.csv` is tracked and unchanged. It occupies approximately 324 KiB on disk. Its size alone is not a compelling reason to exclude it. However, this repository's existing policy keeps instructor inputs and raw datasets outside ordinary commits. Ignoring the supplied Lab 1 datasets would make the implementation consistent with that policy.
+Here, `../../assignments/labs/lab1/scr` is tracked and unchanged. It occupies approximately 324 KiB on disk. Its size alone is not a compelling reason to exclude it. However, this repository's existing policy keeps instructor inputs and raw datasets outside ordinary commits. Ignoring the supplied Lab 1 datasets would make the implementation consistent with that policy.
 
 The decision must include a way to recover the inputs: document the source, archive version or checksum, destination directory, and any extraction steps. Keep a separate local backup if the source might disappear. An ignored file is not backed up by Git.
 
@@ -38,8 +38,8 @@ Run these read-only commands from the repository root:
 git status --short
 git diff
 git diff --cached
-git ls-files -- assignments/labs/lab1/main/datasets/truth/train.csv
-git check-ignore -v --no-index -- assignments/labs/lab1/main/datasets/truth/train.csv
+git ls-files -- assignments/labs/lab1/scr/datasets/truth/train.csv
+git check-ignore -v --no-index -- assignments/labs/lab1/scr/datasets/truth/train.csv
 ```
 
 `git diff` compares working files with the index; `git diff --cached` compares the index with the latest commit. `git ls-files` checks tracking. `git check-ignore -v --no-index` tests ignore rules even for a tracked path and identifies the matching rule, if any. Ordinary `git check-ignore` skips tracked files, so its silence alone does not prove that no pattern matches.
@@ -81,7 +81,7 @@ The root `.gitignore` contains patterns such as:
 /assignments/*/output/**
 ```
 
-These assume a layout like `assignments/A01-topic/data/`. A single `*` does not cross directory separators. The actual dataset lives under `assignments/labs/lab1/main/datasets/`: both the depth and directory name differ. The output rule also misses `assignments/labs/lab1/output/`.
+These assume a layout like `assignments/A01-topic/data/`. A single `*` does not cross directory separators. The actual dataset lives under `../../assignments/labs/lab1/scr`: both the depth and directory name differ. The output rule also misses `assignments/labs/lab1/output/`.
 
 Likewise, ignoring `/materials/**` does not ignore instructor PDFs copied into assignment `docs/` or `backups/` directories. Ignore patterns describe paths; they do not understand that a file is “course material.”
 
@@ -112,7 +112,7 @@ These are proposed rules, not changes applied by this lecture. Keep input proven
 First verify that you can restore the inputs and inspect any pending changes to them. After adding the intended ignore rules, the following would remove these paths from the index while retaining their working-tree files:
 
 ```bash
-git rm -r --cached -- assignments/labs/lab1/main/datasets/ assignments/labs/lab1/backups/
+git rm -r --cached -- assignments/labs/lab1/scr/datasets/ assignments/labs/lab1/backups/
 git add -- .gitignore
 git diff --cached --stat
 git diff --cached --name-status
@@ -132,8 +132,8 @@ None of these cleanup commands were executed in preparing this note.
 Before starting, run `git status` to see unfinished work. After making one coherent change, run the relevant script or check, inspect the diff, and stage explicit paths. For example, after actually implementing and checking a model change:
 
 ```bash
-git diff -- assignments/labs/lab1/main/model.py
-git add -- assignments/labs/lab1/main/model.py
+git diff -- assignments/labs/lab1/scr/model.py
+git add -- assignments/labs/lab1/scr/model.py
 git diff --cached
 git status --short
 git commit -m "Implement Lab 1 linear model"
@@ -152,7 +152,7 @@ Use read-only commands to investigate mistakes first:
 ```bash
 git log --oneline -5
 git diff --cached
-git show HEAD:assignments/labs/lab1/main/model.py
+git show HEAD:assignments/labs/lab1/scr/model.py
 ```
 
 `git restore --staged -- PATH` undoes staging while preserving edits. In contrast, `git restore -- PATH` can discard unstaged edits. Avoid `git reset --hard` or `git clean` as routine tidying tools; uncommitted and ignored work may have no recoverable Git copy.
